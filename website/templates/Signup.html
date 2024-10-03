@@ -4,22 +4,163 @@
     <div align="center" class="row">
         <h1>Sign Up</h1>
     </div>
-    <div class="col-5">
-        <form class="row">
-            <div class="row">
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="First name" aria-label="First name">
-                </div>
+    <form class="needs-validation" id="SignUpForm" novalidate>
+        <div class="mb-3">
+            <label for="FirstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="FirstName">
+            <div class="invalid-feedback">
+                Please Enter Your First Name
             </div>
-            <div class="row">
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="First name" aria-label="First name">
-                </div>
+        </div>
+        <div class="mb-3">
+            <label for="LastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="LastName">
+            <div class="invalid-feedback">
+                Please Enter Your Last Name
             </div>
-        </form>
-    </div>
+        </div>
+        <div class="mb-3">
+            <label for="Email" class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="Email" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            <div class="invalid-feedback">
+                Please Enter Valid Email Address
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="Password1" class="form-label">Password</label>
+            <input type="password" class="form-control" id="Password1">
+            <div class="invalid-feedback">
+                Please Enter Password Thats At Least 4 Characters
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="Password2" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="Password2">
+            <div class="invalid-feedback">
+                Please Enter Password Thats At Least 4 Characters and Matches Previous Password
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 </div>
+<script>
+    function SignUpFormValidation(form, event){                
+        validateFirstName(form, event)
+        validateLastName(form, event)
+        validateEmail(form, event)
+        validatePassword1(form, event)
+        validatePassword2(form, event)
+    }
+
+    function validateFirstName(form, event){
+        var first_name = form.elements.FirstName.value
+        form.elements.FirstName.classList.remove('is-valid', 'is-invalid')
+        if (first_name === ''){
+            if (event.type === 'submit'){
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.elements.FirstName.classList.add('is-invalid')
+        }else{
+            form.elements.FirstName.classList.add('is-valid')
+        }
+    }
+
+    function validateLastName(form, event){
+        var last_name = form.elements.LastName.value
+        form.elements.LastName.classList.remove('is-valid', 'is-invalid')
+        if (last_name === ''){
+            if (event.type === 'submit'){
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.elements.LastName.classList.add('is-invalid')
+        }else{
+            form.elements.LastName.classList.add('is-valid')
+        }
+    }
+
+    function validateEmail(form, event){
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+        
+        var email = form.elements.Email.value
+        form.elements.Email.classList.remove('is-valid', 'is-invalid')
+        if (!emailRegex.test(email)){
+            if (event.type === 'submit'){
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.elements.Email.classList.add('is-invalid')
+        }else{
+            form.elements.Email.classList.add('is-valid')
+        }
+    }
+
+    function validatePassword1(form, event){
+        var password1 = form.elements.Password1.value
+        form.elements.Password1.classList.remove('is-valid', 'is-invalid')
+        if (password1.length < 4){
+            if (event.type === 'submit'){
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.elements.Password1.classList.add('is-invalid')
+        }else{
+            form.elements.Password1.classList.add('is-valid')
+        }
+    }
+
+    function validatePassword2(form, event){
+        var password1 = form.elements.Password1.value
+        var password2 = form.elements.Password2.value
+        form.elements.Password2.classList.remove('is-valid', 'is-invalid')
+        if (password2.length < 4 || (password2 !== password1)){
+            if (event.type === 'submit'){
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.elements.Password2.classList.add('is-invalid')
+        }else{
+            form.elements.Password2.classList.add('is-valid')
+        }
+    }
+
+    (() => {
+        'use strict'
+
+        const form = document.querySelector('#SignUpForm')
+        form.addEventListener('submit', event => SignUpFormValidation(form, event), false)
+    })()
+
+    const form = document.querySelector('#SignUpForm')
+
+    {
+        const firstName = form.elements.FirstName
+        firstName.addEventListener('input', event => validateFirstName(form, event), false)
+    }
+
+    {
+        const lastName = form.elements.LastName
+        lastName.addEventListener('input', event => validateLastName(form, event), false)
+    }
+
+    {
+        const email = form.elements.Email
+        email.addEventListener('input', event => validateEmail(form, event), false)
+    }
+
+    {
+        const password1 = form.elements.Password1
+        password1.addEventListener('input', event => validatePassword1(form, event), false)
+    }
+
+    {
+        const password2 = form.elements.Password2
+        password2.addEventListener('input', event => validatePassword2(form, event), false)
+    }
 
 
+</script>
 
 {% endblock %}
