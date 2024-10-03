@@ -7,29 +7,22 @@
             </div>
         </div>
         <div class="row justify-content-evenly">
-            <div class="col-2">
-                <div class="row text-center">
-                    <h3>Trending</h3>
-                </div>
-            </div>
             <div class="col-8">
                 <div class="row">
                     <h2 align="center">About Us</h2>
-                    <p>Welcome to RecipeRepo, your ultimate online recipe organizer and explorer! We're passionate about making cooking easier and more enjoyable by providing a seamless way to save, organize, and discover recipes from around the world. Whether you're a seasoned chef or just starting out, our platform allows you to store your favorite recipes, customize collections, and explore new culinary ideas. With intuitive search features, dietary filters, and a user-friendly interface, RecipeRepo is designed to help you find inspiration and keep all your kitchen creations in one convenient place. Let's make cooking simple, fun, and delicious together!
-                    </p>
+                    <p align="center">Welcome to RecipeRepo, your ultimate online recipe organizer and explorer! We're passionate about making cooking easier and more enjoyable by providing a seamless way to save, organize, and discover recipes from around the world. Whether you're a seasoned chef or just starting out, our platform allows you to store your favorite recipes, customize collections, and explore new culinary ideas. With intuitive search features, dietary filters, and a user-friendly interface, RecipeRepo is designed to help you find inspiration and keep all your kitchen creations in one convenient place. Let's make cooking simple, fun, and delicious together!</p>
                 </div>
                 <div class="row">
-                    <h2 align="center">New User</h2>
-                    <p>Hey there are you ready to become a new member then click this signup button below to get started on your recipe adventures.</p>
+                    <h3 align="center">Member Login</h3>
+                    <div class="d-flex justify-content-center" style="margin-bottom: 30px;">
+                        <a href="{{ url_for('auth.login') }}" class="btn btn-login">Log In</a>
+                    </div>
                 </div>
                 <div class="row">
-                    <h2 align="center">Member Login</h2>
-                    <p>Username and text go here</p>
-                </div>
-            </div>
-            <div class="col-2">
-                <div class="row text-center">
-                    <h3>Review Feed</h3>
+                    <h3 align="center">New User</h3>
+                    <div class="d-flex justify-content-center">
+                        <a href="{{ url_for('auth.sign_up') }}" class="btn btn-signup">Sign Up</a>
+                    </div>
                 </div>
             </div>
         </div>

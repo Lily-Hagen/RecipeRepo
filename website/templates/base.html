@@ -6,6 +6,19 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
         crossorigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap" rel="stylesheet">
+
+        <style>
+            span {font-family: "Acme", sans-serif; font-weight:400; font-style:normal;}
+            body {font-family: "Alexandria", sans-serif; font-optical-sizing:auto; font-weight:300; font-style:normal;}
+            .btn-login {color:#232323; background-color:#A8C6FA; border-color:#232323; width: 15%;} 
+            .btn-login:hover, .btn-login:focus, .btn-login:active, .btn-login.active, .open .dropdown-toggle.btn-login {color:#232323; background-color:#8CB4FF; border-color:#232323;}
+            .btn-signup {color:#232323; background-color:#92D36E; border-color:#232323; width: 15%;} 
+            .btn-signup:hover, .btn-signup:focus, .btn-signup:active, .btn-signup.active, .open .dropdown-toggle.btn-signup {color:#232323; background-color:#7EB85F; border-color:#232323;} 
+        </style>
         
         <title>{% block title %}Home{% endblock %}</title>
     </head>
@@ -15,15 +28,16 @@
                 <span class="navbar-brand mb-0 h1">RecipeRepo</span>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <div class="navbar-nav">
-                        <a class="nav-link" href="/">Home</a>
+                        <!-- <a class="nav-link" href="/">Home</a> -->
                         <a class="nav-link" href="/Explore">Explore</a>
                         <a class="nav-link" href="/MyCookbooks">My Cookbooks</a>
-                        <a class="nav-link" href="/login">Log In</a>
-                        <a class="nav-link" href="/signup">Sign Up</a>
+                        <!-- <a class="nav-link" href="/login">Log In</a>
+                        <a class="nav-link" href="/signup">Sign Up</a> -->
                     </div>
                 </div>
-              </div>  
+            </div>  
         </nav>
+        <hr style="border-width:4px; color:black; margin-top:0%;">
         {% block content %}{% endblock %}
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
