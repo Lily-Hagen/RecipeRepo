@@ -1,47 +1,74 @@
 {% extends "base.html" %} {% block title %}Sign Up{% endblock %}
 {% block content %}
-<div class="container-lg">
-    <div align="center" class="row">
-        <h1>Sign Up</h1>
-    </div>
-    <form class="needs-validation" id="SignUpForm" novalidate>
-        <div class="mb-3">
-            <label for="FirstName" class="form-label">First Name</label>
-            <input type="text" class="form-control" id="FirstName">
-            <div class="invalid-feedback">
-                Please Enter Your First Name
+<h1 align="center">Sign Up</h1>
+<div class="container-fluid d-flex justify-content-center align-items-center">
+    <form class="w-50 needs-validation" id="SignUpForm" novalidate>
+        <!-- First Name Input with Person Icon -->
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-6" style="margin-top: 1%;">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                    <input type="text" class="form-control" id="FirstName" placeholder="First Name">
+                    <div class="invalid-feedback">Field Cannot Be Empty</div>
+                </div>
             </div>
         </div>
-        <div class="mb-3">
-            <label for="LastName" class="form-label">Last Name</label>
-            <input type="text" class="form-control" id="LastName">
-            <div class="invalid-feedback">
-                Please Enter Your Last Name
+
+        <!-- Last Name Input with Person Icon -->
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                    <input type="text" class="form-control" id="LastName" placeholder="Last Name">
+                    <div class="invalid-feedback">Field Cannot Be Empty</div>
+                </div>
+            </div> 
+        </div>
+
+        <!-- Email Input with Envelope Icon -->
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                    <input type="email" class="form-control" id="Email" placeholder="Email">
+                    <div class="invalid-feedback">Invalid Email Address</div>
+                </div>
             </div>
         </div>
-        <div class="mb-3">
-            <label for="Email" class="form-label">Email Address</label>
-            <input type="email" class="form-control" id="Email" aria-describedby="emailHelp">
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-            <div class="invalid-feedback">
-                Please Enter Valid Email Address
+
+        <!-- Won't Share Your Email Blurb -->
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-6" style="margin-top: -15px; margin-bottom: -10px;">
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
         </div>
-        <div class="mb-3">
-            <label for="Password1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="Password1">
-            <div class="invalid-feedback">
-                Please Enter Password Thats At Least 4 Characters
+        
+        <!-- Password1 Input with Asterisk Icon -->
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-asterisk"></i></span>
+                    <input type="password" class="form-control" id="Password1" placeholder="Password">
+                    <div class="invalid-feedback">Password Must Be At Least 4 Characters</div>
+                </div>
             </div>
         </div>
-        <div class="mb-3">
-            <label for="Password2" class="form-label">Confirm Password</label>
-            <input type="password" class="form-control" id="Password2">
-            <div class="invalid-feedback">
-                Please Enter Password Thats At Least 4 Characters and Matches Previous Password
+
+        <!-- Password2 Input with Asterisk Icon -->
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-asterisk"></i></span>
+                    <input type="password" class="form-control" id="Password2" placeholder="Confirm Password">
+                    <div class="invalid-feedback">Password Must Be At Least 4 Characters and Match Previous Password</div>
+                </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <!-- Sign Up button -->
+        <div class="d-flex justify-content-center">
+            <button type="Sign Up" class="btn btn-signup">Sign Up</button>
+        </div>
     </form>
 </div>
 <script>

@@ -1,15 +1,16 @@
 {% extends "base.html" %} {% block title %}Login{% endblock %}
 {% block content %}
-<h2 align="center">Sign Up</h2>
-<p align="center">Enter your email and password below, then click the submit button</p>
+<h2 align="center">Log In</h2>
+<p align="center">Enter your email and password below</p>
 <div class="container-fluid d-flex justify-content-center align-items-center">
-  <form class="w-50">
+  <form class="w-50 needs-validation" id="LogInForm" novalidate>
     <!-- Email Input with Person Icon -->
     <div class="row mb-3 justify-content-center">
       <div class="col-sm-6">
         <div class="input-group">
           <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-          <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+          <input type="email" class="form-control" id="Email" placeholder="Email">
+          <div class="invalid-feedback">Please Enter A Valid Email Address</div>
         </div>
       </div>
     </div>
@@ -19,17 +20,74 @@
       <div class="col-sm-6">
         <div class="input-group">
           <span class="input-group-text"><i class="bi bi-asterisk"></i></span>
-          <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+          <input type="password" class="form-control" id="Password" placeholder="Password">
+          <div class="invalid-feedback">Please Enter A Password</div>
         </div>
       </div>
     </div>
 
-    <!-- Submit button -->
+    <!-- Log In button -->
     <div class="d-flex justify-content-center">
-      <button type="submit" class="btn btn-signup">Submit</button>
+      <button type="Log In" class="btn btn-login">Log In</button>
     </div>
   </form>
 </div>
 
+<script>
+  function LogInFormValidation(form, event){                
+      validateEmail(form, event)
+      validatePassword(form, event)
+  }
 
+  function validateEmail(form, event){
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+      
+      var email = form.elements.Email.value
+      form.elements.Email.classList.remove('is-valid', 'is-invalid')
+      if (!emailRegex.test(email)){
+          if (event.type === 'submit'){
+              event.preventDefault()
+              event.stopPropagation()
+          }
+          form.elements.Email.classList.add('is-invalid')
+      }else{
+          form.elements.Email.classList.add('is-valid')
+      }
+  }
+
+  function validatePassword(form, event){
+      var password = form.elements.Password.value
+      form.elements.Password.classList.remove('is-valid', 'is-invalid')
+      if (password === ''){
+          if (event.type === 'submit'){
+              event.preventDefault()
+              event.stopPropagation()
+          }
+          form.elements.Password.classList.add('is-invalid')
+      }else{
+          form.elements.Password.classList.add('is-valid')
+      }
+  }
+
+  (() => {
+      'use strict'
+
+      const form = document.querySelector('#LogInForm')
+      form.addEventListener('submit', event => LogInFormValidation(form, event), false)
+  })()
+
+  const form = document.querySelector('#LogInForm')
+
+  {
+      const email = form.elements.Email
+      email.addEventListener('input', event => validateEmail(form, event), false)
+  }
+
+  {
+      const password = form.elements.Password
+      password.addEventListener('input', event => validatePassword(form, event), false)
+  }
+
+
+</script>
 {% endblock %}
