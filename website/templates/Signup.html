@@ -2,13 +2,13 @@
 {% block content %}
 <h1 align="center">Sign Up</h1>
 <div class="container-fluid d-flex justify-content-center align-items-center">
-    <form class="w-50 needs-validation" id="SignUpForm" novalidate>
+    <form method="POST" class="w-50 needs-validation" id="SignUpForm" novalidate>
         <!-- First Name Input with Person Icon -->
         <div class="row mb-3 justify-content-center">
             <div class="col-sm-6" style="margin-top: 1%;">
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-                    <input type="text" class="form-control" id="FirstName" placeholder="First Name">
+                    <input type="text" class="form-control" name="firstname" id="FirstName" placeholder="First Name">
                     <div class="invalid-feedback">Field Cannot Be Empty</div>
                 </div>
             </div>
@@ -19,7 +19,7 @@
             <div class="col-sm-6">
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-                    <input type="text" class="form-control" id="LastName" placeholder="Last Name">
+                    <input type="text" class="form-control" name="lastname" id="LastName" placeholder="Last Name">
                     <div class="invalid-feedback">Field Cannot Be Empty</div>
                 </div>
             </div> 
@@ -30,7 +30,7 @@
             <div class="col-sm-6">
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
-                    <input type="email" class="form-control" id="Email" placeholder="Email">
+                    <input type="email" class="form-control" name="email" id="Email" placeholder="Email">
                     <div class="invalid-feedback">Invalid Email Address</div>
                 </div>
             </div>
@@ -48,7 +48,7 @@
             <div class="col-sm-6">
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-asterisk"></i></span>
-                    <input type="password" class="form-control" id="Password1" placeholder="Password">
+                    <input type="password" class="form-control" name="password1" id="Password1" placeholder="Password">
                     <div class="invalid-feedback">Password Must Be At Least 4 Characters</div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
             <div class="col-sm-6">
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-asterisk"></i></span>
-                    <input type="password" class="form-control" id="Password2" placeholder="Confirm Password">
+                    <input type="password" class="form-control" name="password2" id="Password2" placeholder="Confirm Password">
                     <div class="invalid-feedback">Password Must Be At Least 4 Characters and Match Previous Password</div>
                 </div>
             </div>
