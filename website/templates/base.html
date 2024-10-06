@@ -11,7 +11,9 @@
         <link href="/static/images/Logo-transparent.png" rel="logo">
 
         <style>
-            body, .input-group-text {font-family: "Alexandria", sans-serif; font-optical-sizing:auto; font-weight:300; font-style:normal;}
+            body, .input-group-text {font-family: "Alexandria", sans-serif; font-optical-sizing:auto; font-weight:300; font-style:normal; padding-top: 70px;}
+            .stickynav {position: fixed;top: 0;width: 100%;z-index: 1030;background-color: #FFBA53;}
+            .stickyhr {position: fixed;top: 56px; width: 100%;z-index: 1030;}
             .btn-login {color:#232323; background-color:#A8C6FA; border-color:#232323; width: 100px;} 
             .btn-login:hover, .btn-login:focus, .btn-login:active, .btn-login.active, .open .dropdown-toggle.btn-login {color:#232323; background-color:#8CB4FF; border-color:#232323;}
             .btn-signup {color:#232323; background-color:#92D36E; border-color:#232323; width: 100px;} 
@@ -21,7 +23,7 @@
         <title>{% block title %}Home{% endblock %}</title>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg" style="background-image: linear-gradient(to bottom, #FFBA53, #FFF4B9);">
+        <nav class="navbar navbar-expand-lg stickynav" style="background-image: linear-gradient(to bottom, #FFBA53, #FFF4B9);">
             <div class="container-fluid">
                 <!-- Logo that links to Home -->
                 <a class="navbar-brand fw-bold" href="/">
@@ -41,7 +43,7 @@
                 </div>
             </div>  
         </nav>
-        <hr style="border-width:4px; color:black; margin-top:0%;">
+        <hr class="stickyhr" style="border-width:4px; color:black; margin-top:0%;">
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}

@@ -1,4 +1,118 @@
-{% extends "base.html" %} {% block title %}Sign Up{% endblock %}
-{% block content %}
+{% extends "base.html" %} 
+{% block title %}Explore{% endblock %}
 
+{% block content %}
+<h1 align="center">Explore</h1>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Left Column (Filter and Search) -->
+        <div class="col-lg-3 col-md-4">
+            <div class="sticky-top" style="top: 70px;">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <!-- Search Bar -->
+                        <h5 class="card-title">Search</h5>
+                        <input type="text" class="form-control mb-3" placeholder="Search recipes...">
+                        
+                        <!-- Filter by Tag Section -->
+                        <h5 class="card-title">Filter by Tag</h5>
+                        
+                        <!-- Time of Day Section -->
+                        <div class="mb-3">
+                            <h6>Time of Day</h6>
+                            <ul class="list-group">
+                                <li class="list-group-item"><input type="checkbox"> Breakfast</li>
+                                <li class="list-group-item"><input type="checkbox"> Lunch</li>
+                                <li class="list-group-item"><input type="checkbox"> Dinner</li>
+                                <li class="list-group-item"><input type="checkbox"> Snack</li>
+                            </ul>
+                        </div>
+
+                        <!-- Type of Food Section -->
+                        <div class="mb-3">
+                            <h6>Type of Food</h6>
+                            <ul class="list-group">
+                                <li class="list-group-item"><input type="checkbox"> Appetizer</li>
+                                <li class="list-group-item"><input type="checkbox"> Entree</li>
+                                <li class="list-group-item"><input type="checkbox"> Dessert</li>
+                                <li class="list-group-item"><input type="checkbox"> Side Dish</li>
+                                <li class="list-group-item"><input type="checkbox"> Beverage</li>
+                            </ul>
+                        </div>
+
+                        <!-- Type of Cuisine Section -->
+                        <div class="mb-3">
+                            <h6>Type of Cuisine</h6>
+                            <ul class="list-group">
+                                <li class="list-group-item"><input type="checkbox"> Italian</li>
+                                <li class="list-group-item"><input type="checkbox"> Chinese</li>
+                                <li class="list-group-item"><input type="checkbox"> Mexican</li>
+                                <li class="list-group-item"><input type="checkbox"> Indian</li>
+                                <li class="list-group-item"><input type="checkbox"> American</li>
+                                <li class="list-group-item"><input type="checkbox"> Mediterranean</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column (Recipe Cards) -->
+        <div class="col-lg-9 col-md-8">
+            <div class="row">
+                <!-- Recipe Card 1 -->
+                <div class="col-lg-4 col-md-6 col-sm-12 py-3">
+                    <div class="card">
+                        <a href="#">
+                            <div class="card-body p-0">
+                                <img class="img-fluid h-100" src="..." alt="Canapes & Nibbles">
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="card-footer">
+                                <h5 class="card-title">Canapes & Nibbles</h5>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Recipe Card 2 -->
+                <div class="col-lg-4 col-md-6 col-sm-12 py-3">
+                    <div class="card">
+                        <a href="#">
+                            <div class="card-body p-0">
+                                <img class="img-fluid h-100" src="..." alt="Starters & Soups">
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="card-footer">
+                                <h5 class="card-title">Starters & Soups</h5>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Recipe Card 3 -->
+                <div class="col-lg-4 col-md-6 col-sm-12 py-3">
+                    <div class="card">
+                        <a href="#">
+                            <div class="card-body p-0">
+                                <img class="img-fluid h-100" src="..." alt="Pasta">
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="card-footer">
+                                <h5 class="card-title">Pasta</h5>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Add more cards here -->
+
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
