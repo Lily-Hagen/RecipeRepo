@@ -5,13 +5,37 @@ from . import db
 
 auth = Blueprint('auth', __name__)
 
+
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    # code here
+
+    if (request.method == 'POST'):
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        user = User.query.filter_by(email=email).first()
+
+        if(user):
+            if(check_password_hash(user.password, password)):
+                flash('Login Successful.', category='success')
+                
+            else: # password incorrect
+                flash('Invalid PI Login.', category='error')
+
+        else: # user does not exist, the flash is left the same intentionally
+            flash('Invalid UDNE Login', category='error')
+            
     return render_template("LoginPage.html")
+
+
 
 @auth.route('/logout')
 def logout():
     return "<h1>Logout<h1>"
+
+
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def sign_up():
