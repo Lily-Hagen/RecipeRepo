@@ -7,11 +7,10 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap" rel="stylesheet">
+        <link href="/static/images/Logo-transparent.png" rel="logo">
 
         <style>
-            span {font-family: "Acme", sans-serif; font-weight:400; font-style:normal;}
             body, .input-group-text {font-family: "Alexandria", sans-serif; font-optical-sizing:auto; font-weight:300; font-style:normal;}
             .btn-login {color:#232323; background-color:#A8C6FA; border-color:#232323; width: 100px;} 
             .btn-login:hover, .btn-login:focus, .btn-login:active, .btn-login.active, .open .dropdown-toggle.btn-login {color:#232323; background-color:#8CB4FF; border-color:#232323;}
@@ -24,7 +23,13 @@
     <body>
         <nav class="navbar navbar-expand-lg" style="background-image: linear-gradient(to bottom, #FFBA53, #FFF4B9);">
             <div class="container-fluid">
-                <span class="navbar-brand mb-0 h1">RecipeRepo</span>
+                <!-- Logo that links to Home -->
+                <a class="navbar-brand fw-bold" href="/">
+                    <img src="/static/images/Logo-transparent.png" height="30" width="129">
+                </a>
+                
+                <!-- Navbar Pages -->
+                <span class="navbar-brand mb-0 h1"></span>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <div class="navbar-nav">
                         <a class="nav-link" href="/">Home</a>
