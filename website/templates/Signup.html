@@ -64,6 +64,34 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Security Question -->
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-6" style="margin-top: -15px; margin-bottom: -10px;">
+                <div id="emailHelp" class="form-text">Select and answer a Security Question, in case you forget your password.</div>
+            </div>
+        </div>
+        <div class="dropdown row mb-3 justify-content-center">
+            <button id="SecurityQuestionBtn" class="btn btn-light dropdown-toggle col-sm-6" type="button" data-bs-toggle="dropdown" aria-expanded="false">Security Question</button>
+            <ul class="dropdown-menu w-50">
+                <li><button class="dropdown-item" type="button" onclick="setSecurityQuestion(this)">Name of the street you grew up on</button></li>
+                <li><button class="dropdown-item" type="button" onclick="setSecurityQuestion(this)">Mother's maiden name</button></li>
+                <li><button class="dropdown-item" type="button" onclick="setSecurityQuestion(this)">Name of your favorite childhood pet</button></li>
+                <li><button class="dropdown-item" type="button" onclick="setSecurityQuestion(this)">Title of your favorite movie</button></li>
+                <div class="invalid-feedback">Must Choose A Security Question</div>
+            </ul>
+        </div>
+
+        <!-- Security Question Answer -->
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-shield-lock-fill"></i></span>
+                    <input type="SecurityAnswer" class="form-control" name="SecurityAnswer" id="SecurityAnswer" placeholder="Security Question Answer">
+                    <div class="invalid-feedback">Field Cannot Be Empty</div>
+                </div>
+            </div>
+        </div>
 
         <!-- Sign Up button -->
         <div class="d-flex justify-content-center">
@@ -71,6 +99,8 @@
         </div>
     </form>
 </div>
+
+
 <script>
     function SignUpFormValidation(form, event){                
         validateFirstName(form, event)
@@ -78,6 +108,7 @@
         validateEmail(form, event)
         validatePassword1(form, event)
         validatePassword2(form, event)
+        validateSecurityAnswer(form, event)
     }
 
     function validateFirstName(form, event){
@@ -153,6 +184,20 @@
         }
     }
 
+    function validateSecurityAnswer(form, event){
+        var SecurityAnswer = form.elements.SecurityAnswer.value
+        form.elements.SecurityAnswer.classList.remove('is-valid', 'is-invalid')
+        if (SecurityAnswer === ''){
+            if (event.type === 'submit'){
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.elements.SecurityAnswer.classList.add('is-invalid')
+        }else{
+            form.elements.SecurityAnswer.classList.add('is-valid')
+        }
+    }
+
     (() => {
         'use strict'
 
@@ -185,6 +230,11 @@
     {
         const password2 = form.elements.Password2
         password2.addEventListener('input', event => validatePassword2(form, event), false)
+    }
+
+    {
+        const SecurityAnswer = form.elements.SecurityAnswer
+        SecurityAnswer.addEventListener('input', event => validateSecurityAnswer(form, event), false)
     }
 
 

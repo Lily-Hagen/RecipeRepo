@@ -15,3 +15,7 @@ def Cookbooks():
 @views.route('/Explore')
 def Explore():
     return render_template("Explore.html")
+
+@views.route('/Account')
+def Account():
+    return render_template("Account.html")
