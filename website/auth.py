@@ -46,6 +46,8 @@ def sign_up():
         lastname = request.form.get('lastname')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
+        securityQuestion = request.form.get('SecurityQuestionInput')
+        securityAnswer = request.form.get('SecurityAnswer')
 
         user_exists = User.query.filter_by(email=email).first()
         if (user_exists):
@@ -53,7 +55,7 @@ def sign_up():
             flash('Email Provided Already Has Account!', category='error')
         else:
             #create user
-            new_user = User(email=email, first_name=firstname, last_name=lastname, password=generate_password_hash(password1))
+            new_user = User(email=email, first_name=firstname, last_name=lastname, password=generate_password_hash(password1), security_prompt=securityQuestion, security_answer=securityAnswer)
             db.session.add(new_user)
             db.session.commit()
             flash('Account Created!', category='success')

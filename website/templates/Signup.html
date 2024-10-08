@@ -72,15 +72,19 @@
             </div>
         </div>
         <div class="dropdown row mb-3 justify-content-center">
-            <button id="SecurityQuestionBtn" class="btn btn-light dropdown-toggle col-sm-6" type="button" data-bs-toggle="dropdown" aria-expanded="false">Security Question</button>
-            <ul class="dropdown-menu w-50">
-                <li><button class="dropdown-item" type="button" onclick="setSecurityQuestion(this)">Name of the street you grew up on</button></li>
-                <li><button class="dropdown-item" type="button" onclick="setSecurityQuestion(this)">Mother's maiden name</button></li>
-                <li><button class="dropdown-item" type="button" onclick="setSecurityQuestion(this)">Name of your favorite childhood pet</button></li>
-                <li><button class="dropdown-item" type="button" onclick="setSecurityQuestion(this)">Title of your favorite movie</button></li>
-                <div class="invalid-feedback">Must Choose A Security Question</div>
-            </ul>
+            <div class="col-sm-6">
+                <button id="SecurityQuestionBtn" class="btn btn-light dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">Security Question</button>
+                <ul class="dropdown-menu w-100" id="SecurityQuestionDropdownList">
+                    <li><button class="dropdown-item" type="button" onclick="setSecurityQuestion(this)">Name of the street you grew up on</button></li>
+                    <li><button class="dropdown-item" type="button" onclick="setSecurityQuestion(this)">Mother's maiden name</button></li>
+                    <li><button class="dropdown-item" type="button" onclick="setSecurityQuestion(this)">Name of your favorite childhood pet</button></li>
+                    <li><button class="dropdown-item" type="button" onclick="setSecurityQuestion(this)">Title of your favorite movie</button></li>
+                </ul>
+                <div id="securityQuestionError" name="securityQuestionError" class="invalid-feedback" style="display:none;">Please choose a security question.</div>
+            </div>
         </div>
+
+        <input type="hidden" id="SecurityQuestionInput" name="SecurityQuestionInput" value="">
 
         <!-- Security Question Answer -->
         <div class="row mb-3 justify-content-center">
@@ -102,6 +106,28 @@
 
 
 <script>
+    function setSecurityQuestion(button){
+        var prompt = document.getElementById('SecurityQuestionBtn').innerText = button.innerText;
+        if (prompt === "Name of the street you grew up on"){
+            document.getElementById('SecurityQuestionInput').value = "1";
+        }else if (prompt === "Mother's maiden name"){
+            document.getElementById('SecurityQuestionInput').value = "2";
+        }else if (prompt === "Name of your favorite childhood pet"){
+            document.getElementById('SecurityQuestionInput').value = "3";
+        }else if (prompt === "Title of your favorite movie"){
+            document.getElementById('SecurityQuestionInput').value = "4";
+        }
+
+        var SecurityPrompt = document.getElementById('SecurityQuestionInput').value
+
+        if (SecurityPrompt === ''){
+            document.getElementById('securityQuestionError').style.display = 'block'
+        }else{
+            document.getElementById('securityQuestionError').style.display = 'none'
+        }
+    }
+
+
     function SignUpFormValidation(form, event){                
         validateFirstName(form, event)
         validateLastName(form, event)
@@ -109,6 +135,7 @@
         validatePassword1(form, event)
         validatePassword2(form, event)
         validateSecurityAnswer(form, event)
+        validateSecurityPrompt(form, event)
     }
 
     function validateFirstName(form, event){
@@ -198,6 +225,19 @@
         }
     }
 
+    function validateSecurityPrompt(form, event){
+        var SecurityPrompt = document.getElementById('SecurityQuestionInput').value
+        if (SecurityPrompt === ''){
+            if (event.type === 'submit'){
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            document.getElementById('securityQuestionError').style.display = 'block'
+        }else{
+            document.getElementById('securityQuestionError').style.display = 'none'
+        }
+    }
+
     (() => {
         'use strict'
 
@@ -236,7 +276,6 @@
         const SecurityAnswer = form.elements.SecurityAnswer
         SecurityAnswer.addEventListener('input', event => validateSecurityAnswer(form, event), false)
     }
-
 
 </script>
 

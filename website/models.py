@@ -7,3 +7,5 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(100))
     last_name = db.Column(db.String(100))
     password = db.Column(db.String(150))
+    security_prompt = db.Column(db.Integer)
+    security_answer = db.Column(db.String(150))
