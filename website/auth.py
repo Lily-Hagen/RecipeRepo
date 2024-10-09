@@ -62,3 +62,9 @@ def sign_up():
             return redirect(url_for('views.home'))
 
     return render_template("Signup.html")
+
+
+@auth.route('/forgotPassword', methods=['GET', 'POST'])
+def forgotPassword():
+        
+    return render_template("forgotPassword.html")
