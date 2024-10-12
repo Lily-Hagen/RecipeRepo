@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
+from flask_login import login_user, login_required, logout_user, current_user
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
@@ -20,20 +21,24 @@ def login():
         if(user):
             if(check_password_hash(user.password, password)):
                 flash('Login Successful.', category='success')
+                login_user(user, remember=True) # logs the user in, passes in to pages with flask module thingy
+                
                 
             else: # password incorrect
-                flash('Incorrect Password, Please Try Again.', category='error')
+                flash('Failed to login, please check your username and/or password.', category='error')
 
         else: # user does not exist, the flash is left the same intentionally
-            flash('Email Not Found, Please Try Again.', category='error')
+            flash('Failed to login, please try again.', category='error')
             
     return render_template("LoginPage.html")
 
 
 
 @auth.route('/logout')
+@login_required # login functionality requirement
 def logout():
-    return "<h1>Logout<h1>"
+    logout_user()
+    return redirect(url_for('views.home'))
 
 
 
@@ -59,9 +64,13 @@ def sign_up():
             db.session.add(new_user)
             db.session.commit()
             flash('Account Created!', category='success')
+
+            login_user(new_user, remember=True) # create and pass in user object 
+
             return redirect(url_for('views.home'))
 
-    return render_template("Signup.html")
+    return render_template("Signup.html", user=current_user)
+
 
 
 @auth.route('/forgotPassword1', methods=['GET', 'POST'])
@@ -76,6 +85,7 @@ def forgotPassword1():
             flash("Email Provided Doesn't Have An Account!", category='error')
     
     return render_template("forgotPassword1.html")
+
 
 
 @auth.route('/forgotPassword2', methods=['GET', 'POST'])
