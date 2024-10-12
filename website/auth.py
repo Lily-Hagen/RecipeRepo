@@ -73,7 +73,7 @@ def forgotPassword1():
         if (user_exists):
             return redirect(url_for('auth.forgotPassword2', email=email))
         else:
-            flash('Email Provided Doesnt Have An Account!', category='error')
+            flash("Email Provided Doesn't Have An Account!", category='error')
     
     return render_template("forgotPassword1.html")
 
