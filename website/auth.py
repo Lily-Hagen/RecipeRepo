@@ -22,10 +22,10 @@ def login():
                 flash('Login Successful.', category='success')
                 
             else: # password incorrect
-                flash('Invalid PI Login.', category='error')
+                flash('Incorrect Password, Please Try Again.', category='error')
 
         else: # user does not exist, the flash is left the same intentionally
-            flash('Invalid UDNE Login', category='error')
+            flash('Email Not Found, Please Try Again.', category='error')
             
     return render_template("LoginPage.html")
 
