@@ -1,4 +1,47 @@
 {% extends "base.html" %} {% block title %}Account{% endblock %}
 {% block content %}
+<h1 align="center"> Account Info </h1>
 
+
+<div class="container-fluid d-flex justify-content-center align-items-center">
+    <form method="POST" class="w-50 needs-validation" id="SignUpForm" novalidate>
+        <!-- First Name Input with Person Icon -->
+        <h4 align="center"> First Name </h1>
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-6" style="margin-top: 1%;">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                    <input type="text" class="form-control" name="firstname" id="FirstName" placeholder="import user's first name*">
+                    <div class="invalid-feedback">Field Cannot Be Empty</div>
+                </div>
+            </div>
+        </div>
+
+        <h4 align="center"> Last Name </h1>
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                    <input type="text" class="form-control" name="lastname" id="LastName" placeholder="import user's last name*">
+                    <div class="invalid-feedback">Field Cannot Be Empty</div>
+                </div>
+            </div> 
+        </div>
+
+        <!-- Email Input with Envelope Icon -->
+        <h4 align="center"> Email Address </h1>
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                    <input type="email" class="form-control" name="email" id="Email" placeholder="import user's email*">
+                    <div class="invalid-feedback">Invalid Email Address</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Log In button -->
+    <div class="d-flex justify-content-center">
+        <button type="Log In" class="btn btn-login"> Submit </button>
+      </div>
 {% endblock %}
