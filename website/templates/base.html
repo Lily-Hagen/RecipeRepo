@@ -12,7 +12,9 @@
 
         <style>
             body, .input-group-text {font-family: "Alexandria", sans-serif; font-optical-sizing:auto; font-weight:300; font-style:normal;}
-            .bi-person-circle {font-size: 1.4rem;}
+            .nav-link {font-weight:500;}
+            .btn-acc {color:#232323; background-color:#F8F9FA; border-color:#232323;} 
+            .btn-acc:hover, .btn-acc:focus, .btn-acc:active, .btn-acc.active, .open .dropdown-toggle.btn-acc {color:#232323; background-color:#EBECED; border-color:#232323;}
             .btn-login {color:#232323; background-color:#A8C6FA; border-color:#232323; width: 100px;} 
             .btn-login:hover, .btn-login:focus, .btn-login:active, .btn-login.active, .open .dropdown-toggle.btn-login {color:#232323; background-color:#8CB4FF; border-color:#232323;}
             .btn-signup {color:#232323; background-color:#92D36E; border-color:#232323; width: 100px;} 
@@ -41,9 +43,15 @@
                     </div>
                 </div>
 
-                <!-- Account Icon on the Far Right -->
-                <div class="d-flex ms-auto">
-                    <a class="nav-link" href="/Account"><i class="bi bi-person-circle"></i></a>
+                <!-- Account Icon Dropdown -->
+                <div class="d-flex ms-auto dropdown">
+                    <button class="btn btn-acc dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle" style="font-size: 1.2rem; padding-right: 6px;"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="/Account">My Account</a></li>
+                        <li><a class="dropdown-item" href="/logout">Log Out</a></li>
+                    </ul>
                 </div>
             </div>  
         </nav>
