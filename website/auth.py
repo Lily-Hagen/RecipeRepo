@@ -35,10 +35,16 @@ def login():
 
 
 @auth.route('/logout')
-@login_required # login functionality requirement
+# @login_required # login functionality requirement
 def logout():
-    logout_user()
-    return redirect(url_for('views.home'))
+    if(current_user.is_authenticated):
+        logout_user()
+        flash('You have successfully logged out.', category='success')
+        return redirect(url_for('views.home'))
+    else:
+        flash('You are not currently logged in.', category='error')
+        return redirect(url_for('views.home'))
+
 
 
 
