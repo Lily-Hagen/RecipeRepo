@@ -59,58 +59,68 @@
 
         <!-- Right Column (Recipe Cards) -->
         <div class="col-lg-9 col-md-8">
-            <div class="row">
-                <!-- Recipe Card 1 -->
-                <div class="col-lg-4 col-md-6 col-sm-12 py-3">
-                    <div class="card">
-                        <a href="#">
-                            <div class="card-body p-0">
-                                <img class="img-fluid h-100" src="..." alt="Canapes & Nibbles">
+            {% if recipes %}
+                <div class="row">
+                    {% for recipe in recipes %}
+                        <!-- Recipe Card -->
+                        <div class="col-lg-4 col-md-6 col-sm-12 py-3">
+                            <div class="card w-100 h-100">
+                                <img class="card-img-top" src="{{ recipe.image_url }}" alt="No Image">
+                                
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">{{ recipe.title }}</h5>
+                                    <p class="card-text">Serving Size: {{ recipe.serving_size }}</p>
+                                    <p class="card-text">Preparation Time: {{ recipe.prep_time }}</p>
+                                    <p class="card-text">Cook Time: {{ recipe.cook_time }}</p>
+
+                                    <div class="d-flex flex-wrap mt-2">
+                                        {% if recipe.is_breakfast %}
+                                            <span class="badge rounded-pill text-bg-primary me-2 mb-2">Breakfast</span>
+                                        {% endif %}
+                                        {% if recipe.is_lunch %}
+                                            <span class="badge rounded-pill text-bg-primary me-2 mb-2">Lunch</span>
+                                        {% endif %}
+                                        {% if recipe.is_dinner %}
+                                            <span class="badge rounded-pill text-bg-primary me-2 mb-2">Dinner</span>
+                                        {% endif %}
+                                        {% if recipe.is_appetizer %}
+                                            <span class="badge rounded-pill text-bg-primary me-2 mb-2">Appetizer</span>
+                                        {% endif %}
+                                        {% if recipe.is_entree %}
+                                            <span class="badge rounded-pill text-bg-primary me-2 mb-2">Entrée</span>
+                                        {% endif %}
+                                        {% if recipe.is_dessert %}
+                                            <span class="badge rounded-pill text-bg-primary me-2 mb-2">Dessert</span>
+                                        {% endif %}
+                                        {% if recipe.is_sidedish %}
+                                            <span class="badge rounded-pill text-bg-primary me-2 mb-2">Side Dish</span>
+                                        {% endif %}
+                                        {% if recipe.is_italian %}
+                                            <span class="badge rounded-pill text-bg-primary me-2 mb-2">Italian</span>
+                                        {% endif %}
+                                        {% if recipe.is_chinese %}
+                                            <span class="badge rounded-pill text-bg-primary me-2 mb-2">Chinese</span>
+                                        {% endif %}
+                                        {% if recipe.is_mexican %}
+                                            <span class="badge rounded-pill text-bg-primary me-2 mb-2">Mexican</span>
+                                        {% endif %}
+                                        {% if recipe.is_indian %}
+                                            <span class="badge rounded-pill text-bg-primary me-2 mb-2">Indian</span>
+                                        {% endif %}
+                                        {% if recipe.is_american %}
+                                            <span class="badge rounded-pill text-bg-primary me-2 mb-2">American</span>
+                                        {% endif %}
+                                        {% if recipe.is_mediterranean %}
+                                            <span class="badge rounded-pill text-bg-primary me-2 mb-2">Mediterranean</span>
+                                        {% endif %}
+                                    </div>
+                                    <a class="btn btn-secondary" href="{{ url_for('views.RecipeView', recipe_id=recipe.id) }}" role="button">View Recipe</a>
+                                </div>
                             </div>
-                        </a>
-                        <a href="#">
-                            <div class="card-footer">
-                                <h5 class="card-title">Canapes & Nibbles</h5>
-                            </div>
-                        </a>
-                    </div>
+                        </div>
+                    {% endfor %}
                 </div>
-
-                <!-- Recipe Card 2 -->
-                <div class="col-lg-4 col-md-6 col-sm-12 py-3">
-                    <div class="card">
-                        <a href="#">
-                            <div class="card-body p-0">
-                                <img class="img-fluid h-100" src="..." alt="Starters & Soups">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="card-footer">
-                                <h5 class="card-title">Starters & Soups</h5>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Recipe Card 3 -->
-                <div class="col-lg-4 col-md-6 col-sm-12 py-3">
-                    <div class="card">
-                        <a href="#">
-                            <div class="card-body p-0">
-                                <img class="img-fluid h-100" src="..." alt="Pasta">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="card-footer">
-                                <h5 class="card-title">Pasta</h5>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Add more cards here -->
-
-            </div>
+            {% endif %}
         </div>
     </div>
 </div>
