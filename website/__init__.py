@@ -67,10 +67,11 @@ def seed_recipe_data(app, General_Recipe):
                 instructions_string = "\n".join(recipe['instructions'])
                 gen_rec = General_Recipe(title=recipe['title'], image_url=recipe['image_url'], ingredients=ingredients_string, instructions=instructions_string,
                                          serving_size=recipe['serving_size'], prep_time=recipe['prep_time'], cook_time=recipe['cook_time'],
-                                         is_breakfast=recipe['is_breakfast'], is_lunch=recipe['is_lunch'], is_dinner=recipe['is_dinner'], is_appetizer=recipe['is_appetizer'],
-                                         is_entree=recipe['is_entree'], is_dessert=recipe['is_dessert'], is_sidedish=recipe['is_sidedish'], is_italian=recipe['is_italian'],
-                                         is_chinese=recipe['is_chinese'], is_mexican=recipe['is_mexican'], is_indian=recipe['is_indian'], is_american=recipe['is_american'],
-                                         is_mediterranean=recipe['is_mediterranean'])
+                                         is_breakfast=recipe.get('is_breakfast', 0), is_lunch=recipe.get('is_lunch', 0), is_dinner=recipe.get('is_dinner', 0),
+                                         is_appetizer=recipe.get('is_appetizer', 0), is_entree=recipe.get('is_entree', 0), is_dessert=recipe.get('is_dessert', 0),
+                                         is_sidedish=recipe.get('is_sidedish', 0), is_italian=recipe.get('is_italian', 0), is_chinese=recipe.get('is_chinese', 0),
+                                         is_mexican=recipe.get('is_mexican', 0), is_indian=recipe.get('is_indian', 0), is_american=recipe.get('is_american', 0),
+                                         is_mediterranean=recipe.get('is_mediterranean', 0))
                 db.session.add(gen_rec)
                 
             db.session.commit()
