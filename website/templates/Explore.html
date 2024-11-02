@@ -7,54 +7,57 @@
     <div class="row">
         <!-- Left Column (Filter and Search) -->
         <div class="col-lg-2 col-md-2" style="margin-left: 25px; margin-right: 25px;">
-            <div class="sticky-top" style="top: 70px;">
-                <div class="card mb-2">
-                    <div class="card-body">
-                        <!-- Search Bar -->
-                        <h5 class="card-title">Search</h5>
-                        <input type="text" class="form-control mb-3" placeholder="Search recipes...">
-                        
-                        <!-- Filter by Tag Section -->
-                        <h5 class="card-title d-inline">Filter by <span class="badge badge-tag rounded-pill">Tag</span></h5>
-                        
-                        <!-- Time of Day Section -->
-                        <div class="mb-3">
-                            <h6>Time of Day</h6>
-                            <ul class="list-group">
-                                <li class="list-group-item"><input type="checkbox"> Breakfast</li>
-                                <li class="list-group-item"><input type="checkbox"> Lunch</li>
-                                <li class="list-group-item"><input type="checkbox"> Dinner</li>
-                                <li class="list-group-item"><input type="checkbox"> Snack</li>
-                            </ul>
-                        </div>
+            <form method="POST" action="{{ url_for('views.Explore') }}">
+                <div class="sticky-top" style="top: 70px;">
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <!-- Search Bar -->
+                            <h5 class="card-title">Search</h5>
+                            <input type="text" class="form-control mb-3" placeholder="Search recipes...">
+                            
+                            <!-- Filter by Tag Section -->
+                            <h5 class="card-title d-inline">Filter by <span class="badge badge-tag rounded-pill">Tag</span></h5>
+                            
+                            <!-- Time of Day Section -->
+                            <div class="mb-3">
+                                <h6>Time of Day</h6>
+                                <ul class="list-group">
+                                    <li class="list-group-item"><input type="checkbox" name="is_breakfast"> Breakfast</li>
+                                    <li class="list-group-item"><input type="checkbox" name="is_lunch"> Lunch</li>
+                                    <li class="list-group-item"><input type="checkbox" name="is_dinner"> Dinner</li>
+                                    <li class="list-group-item"><input type="checkbox" name="is_snack"> Snack</li>
+                                </ul>
+                            </div>
 
-                        <!-- Type of Food Section -->
-                        <div class="mb-3">
-                            <h6>Type of Food</h6>
-                            <ul class="list-group">
-                                <li class="list-group-item"><input type="checkbox"> Appetizer</li>
-                                <li class="list-group-item"><input type="checkbox"> Entree</li>
-                                <li class="list-group-item"><input type="checkbox"> Dessert</li>
-                                <li class="list-group-item"><input type="checkbox"> Side Dish</li>
-                            </ul>
-                        </div>
+                            <!-- Type of Food Section -->
+                            <div class="mb-3">
+                                <h6>Type of Food</h6>
+                                <ul class="list-group">
+                                    <li class="list-group-item"><input type="checkbox" name="is_appetizer"> Appetizer</li>
+                                    <li class="list-group-item"><input type="checkbox" name="is_entree"> Entree</li>
+                                    <li class="list-group-item"><input type="checkbox" name="is_dessert"> Dessert</li>
+                                    <li class="list-group-item"><input type="checkbox" name="is_sidedish"> Side Dish</li>
+                                </ul>
+                            </div>
 
-                        <!-- Type of Cuisine Section -->
-                        <div class="mb-3">
-                            <h6>Type of Cuisine</h6>
-                            <ul class="list-group">
-                                <li class="list-group-item"><input type="checkbox"> Italian</li>
-                                <li class="list-group-item"><input type="checkbox"> Chinese</li>
-                                <li class="list-group-item"><input type="checkbox"> Mexican</li>
-                                <li class="list-group-item"><input type="checkbox"> Indian</li>
-                                <li class="list-group-item"><input type="checkbox"> American</li>
-                                <li class="list-group-item"><input type="checkbox"> Mediterranean</li>
-                            </ul>
-                        </div>
+                            <!-- Type of Cuisine Section -->
+                            <div class="mb-3">
+                                <h6>Type of Cuisine</h6>
+                                <ul class="list-group">
+                                    <li class="list-group-item"><input type="checkbox" name="is_italian"> Italian</li>
+                                    <li class="list-group-item"><input type="checkbox" name="is_chinese"> Chinese</li>
+                                    <li class="list-group-item"><input type="checkbox" name="is_mexican"> Mexican</li>
+                                    <li class="list-group-item"><input type="checkbox" name="is_indian"> Indian</li>
+                                    <li class="list-group-item"><input type="checkbox" name="is_american"> American</li>
+                                    <li class="list-group-item"><input type="checkbox" name="is_mediterranean"> Mediterranean</li>
+                                </ul>
+                            </div>
 
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-primary">Apply Filters</button>
+                        </div>
                     </div>
                 </div>
-            </div>
         </div>
 
         <!-- Right Column (Recipe Cards) -->
@@ -124,4 +127,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Select the form
+    const form = document.querySelector('form');
+    // Button will submit the form, this is the form that gets created
+</script>
+
 {% endblock %}
