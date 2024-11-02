@@ -1,47 +1,97 @@
-{% extends "base.html" %} {% block title %}Account{% endblock %}
+{% extends "base.html" %} {% block title %}Login{% endblock %}
 {% block content %}
-<h1 align="center"> Account Info </h1>
-
-
+<h1 align="center">Account Info</h1>
 <div class="container-fluid d-flex justify-content-center align-items-center">
-    <form method="POST" class="w-50 needs-validation" id="SignUpForm" novalidate>
-        <!-- First Name Input with Person Icon -->
-        <h4 align="center"> First Name </h1>
-        <div class="row mb-3 justify-content-center">
-            <div class="col-sm-6" style="margin-top: 1%;">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-                    <input type="text" class="form-control" name="firstname" id="FirstName" placeholder="import user's first name*">
-                    <div class="invalid-feedback">Field Cannot Be Empty</div>
-                </div>
-            </div>
-        </div>
+  <form method="POST" class="w-50 needs-validation" id="Account" novalidate>
+    <!-- Email Input with Person Icon -->
+    <h3 align="center"> First Name </h3>
+    <h6 align="center"> {{ current_user.first_name }} </h6>
+    <h3 align="center"> Last Name </h3>
+    <h6 align="center"> {{ current_user.last_name }} </h6>
+    <h3 align="center"> Email </h3>
+    <h6 align="center"> {{ current_user.email }} </h6>
 
-        <h4 align="center"> Last Name </h1>
-        <div class="row mb-3 justify-content-center">
-            <div class="col-sm-6">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-                    <input type="text" class="form-control" name="lastname" id="LastName" placeholder="import user's last name*">
-                    <div class="invalid-feedback">Field Cannot Be Empty</div>
-                </div>
-            </div> 
-        </div>
-
-        <!-- Email Input with Envelope Icon -->
-        <h4 align="center"> Email Address </h1>
-        <div class="row mb-3 justify-content-center">
-            <div class="col-sm-6">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
-                    <input type="email" class="form-control" name="email" id="Email" placeholder="import user's email*">
-                    <div class="invalid-feedback">Invalid Email Address</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Log In button -->
+    <!-- Submit button -->
     <div class="d-flex justify-content-center">
-        <button type="Log In" class="btn btn-login"> Submit </button>
-      </div>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal1">
+        Make Changes
+      </button>
+    </div>
+    
+    
+  </form>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST" class="needs-validation" id="Account" novalidate>
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Change User Information</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <!-- Email Input with Person Icon -->
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+              <input type="first_name" class="form-control" name="first_name" id="first_name" value="{{ current_user.first_name }}">
+            </div>
+        
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                <input type="last_name" class="form-control" name="last_name" id="last_name" value="{{ current_user.last_name }}">
+              </div>
+            
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                <input type="email" class="form-control" name="email" id="email" value="{{ current_user.email }}">
+                <div class="invalid-feedback">Please Enter A Valid Email Address</div>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="Submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  function LogInFormValidation(form, event){                
+      validateEmail(form, event)
+  }
+
+  function validateEmail(form, event){
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+      
+      var email = form.elements.Email.value
+      form.elements.Email.classList.remove('is-valid', 'is-invalid')
+      if (!emailRegex.test(email)){
+          if (event.type === 'submit'){
+              event.preventDefault()
+              event.stopPropagation()
+          }
+          form.elements.Email.classList.add('is-invalid')
+      }else{
+          form.elements.Email.classList.add('is-valid')
+      }
+  }
+
+  (() => {
+      'use strict'
+
+      const form = document.querySelector('#Account')
+      form.addEventListener('submit', event => LogInFormValidation(form, event), false)
+  })()
+
+  const form = document.querySelector('#Account')
+
+  {
+      const email = form.elements.email
+      email.addEventListener('input', event => validateEmail(form, event), false)
+  }
+
+</script>
 {% endblock %}

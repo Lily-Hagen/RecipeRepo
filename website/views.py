@@ -30,9 +30,26 @@ def Explore():
         return render_template("Explore.html", recipes=all_recipes)
 
 
-@views.route('/Account')
+@views.route('/Account', methods=['GET', 'POST'])
 def Account():
     if(current_user.is_authenticated):
+        if (request.method == 'POST'):
+            first_name = request.form.get("first_name")
+            last_name = request.form.get("last_name")
+            email = request.form.get("email")
+
+            same_email = email == current_user.email
+            user_exists = User.query.filter_by(email=email).first()
+            if ((not user_exists) or same_email == True):
+                current_user.first_name = first_name
+                current_user.last_name = last_name
+                current_user.email = email
+                db.session.commit()
+
+                flash('User details changed successfully', category='success')
+            else:
+                flash('Email typed in is currently in use', category='error')
+            
         return render_template("Account.html", user=current_user)
     
     else:
