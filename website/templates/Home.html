@@ -1,26 +1,33 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %}
 {% block content %}
-<h1 align="center">Welcome To RecipeRepo!</h1>
-    <div class="container-lg">
-        <div class="row justify-content-evenly">
-            <div class="col-8">
-                <div class="row">
-                    <h3 align="center">~ About Us ~</h3>
-                    <p align="center">Welcome to RecipeRepo, your ultimate online recipe organizer and explorer! We're passionate about making cooking easier and more enjoyable by providing a seamless way to save, organize, and discover recipes from around the world. Whether you're a seasoned chef or just starting out, our platform allows you to store your favorite recipes, customize collections, and explore new culinary ideas. With intuitive search features, dietary filters, and a user-friendly interface, RecipeRepo is designed to help you find inspiration and keep all your kitchen creations in one convenient place. Let's make cooking simple, fun, and delicious together!</p>
-                </div>
-                <div class="row">
-                    <h3 align="center">Member Login</h3>
-                    <div class="d-flex justify-content-center" style="margin-bottom: 30px;">
-                        <a href="{{ url_for('auth.login') }}" class="btn btn-login">Log In</a>
-                    </div>
-                </div>
-                <div class="row">
-                    <h3 align="center">New User</h3>
-                    <div class="d-flex justify-content-center">
-                        <a href="{{ url_for('auth.sign_up') }}" class="btn btn-signup">Sign Up</a>
-                    </div>
-                </div>
+<h1 align="center" style="margin-top: 1rem;">Welcome To RecipeRepo!</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-3 col-md-3" style="margin-left: 15px; margin-right: 15px; margin-top: -2.5%;">
+            <img src="/static/images/bacon-bbq-cheeseburger.jpg" class="img-thumbnail">
+            <img src="/static/images/chicken-parmesan.jpg" class="img-thumbnail">
+        </div>
+            
+        <div class="col">
+            <h3 align="center">~ About Us ~</h3>
+            <p align="left">Welcome to RecipeRepo, your ultimate online recipe organizer and explorer! We're passionate about making cooking easier and more enjoyable by providing a seamless way to save, organize, and discover recipes from around the world.</p>
+            <p align="left">Whether you're a seasoned chef or just starting out, our platform allows you to store your favorite recipes, customize collections, and explore new culinary ideas. With intuitive search features, dietary filters, and a user-friendly interface, RecipeRepo is designed to help you find inspiration and keep all your kitchen creations in one convenient place. Let's make cooking simple, fun, and delicious together!</p>
+        
+            <h3 align="center">Member Login</h3>
+            <div class="d-flex justify-content-center" style="margin-bottom: 30px;">
+                <a href="{{ url_for('auth.login') }}" class="btn btn-login">Log In</a>
+            </div>
+        
+            <h3 align="center">New User</h3>
+            <div class="d-flex justify-content-center">
+                <a href="{{ url_for('auth.sign_up') }}" class="btn btn-signup">Sign Up</a>
             </div>
         </div>
+
+        <div class="col-lg-3 col-md-3" style="margin-left: 15px; margin-right: 15px; margin-top: -2.5%;">
+            <img src="/static/images/overnight-cinnamon-rolls.png" class="img-thumbnail">
+            <img src="/static/images/chicken-tikka-masala.jpg" class="img-thumbnail">
+        </div>
     </div>
+</div>
 {% endblock %}

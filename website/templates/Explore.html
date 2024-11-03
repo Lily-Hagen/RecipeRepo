@@ -76,49 +76,7 @@
                                     <p class="card-text" style="margin-bottom: 2%;"><strong>Servings:</strong> {{ recipe.serving_size }}</p>
                                     <p class="card-text" style="margin-bottom: 2%;"><strong>Prep Time:</strong> {{ recipe.prep_time }}</p>
                                     <p class="card-text"><strong>Cook Time:</strong> {{ recipe.cook_time }}</p>
-
-                                    <div class="d-flex flex-wrap mt-auto">
-                                        {% if recipe.is_breakfast %}
-                                            <span class="badge badge-tag rounded-pill me-2 mb-2">Breakfast</span>
-                                        {% endif %}
-                                        {% if recipe.is_lunch %}
-                                            <span class="badge badge-tag rounded-pill me-2 mb-2">Lunch</span>
-                                        {% endif %}
-                                        {% if recipe.is_dinner %}
-                                            <span class="badge badge-tag rounded-pill me-2 mb-2">Dinner</span>
-                                        {% endif %}
-                                        {% if recipe.is_appetizer %}
-                                            <span class="badge badge-tag rounded-pill me-2 mb-2">Appetizer</span>
-                                        {% endif %}
-                                        {% if recipe.is_entree %}
-                                            <span class="badge badge-tag rounded-pill me-2 mb-2">Entrée</span>
-                                        {% endif %}
-                                        {% if recipe.is_dessert %}
-                                            <span class="badge badge-tag rounded-pill me-2 mb-2">Dessert</span>
-                                        {% endif %}
-                                        {% if recipe.is_sidedish %}
-                                            <span class="badge badge-tag rounded-pill me-2 mb-2">Side Dish</span>
-                                        {% endif %}
-                                        {% if recipe.is_italian %}
-                                            <span class="badge badge-tag rounded-pill me-2 mb-2">Italian</span>
-                                        {% endif %}
-                                        {% if recipe.is_chinese %}
-                                            <span class="badge badge-tag rounded-pill me-2 mb-2">Chinese</span>
-                                        {% endif %}
-                                        {% if recipe.is_mexican %}
-                                            <span class="badge badge-tag rounded-pill me-2 mb-2">Mexican</span>
-                                        {% endif %}
-                                        {% if recipe.is_indian %}
-                                            <span class="badge badge-tag rounded-pill me-2 mb-2">Indian</span>
-                                        {% endif %}
-                                        {% if recipe.is_american %}
-                                            <span class="badge badge-tag rounded-pill me-2 mb-2">American</span>
-                                        {% endif %}
-                                        {% if recipe.is_mediterranean %}
-                                            <span class="badge badge-tag rounded-pill me-2 mb-2">Mediterranean</span>
-                                        {% endif %}
-                                    </div>
-                                    <a class="btn btn-success mt-auto" href="{{ url_for('views.RecipeView', recipe_id=recipe.id) }}" role="button">View Recipe</a>
+                                    <a class="btn btn-login mt-auto" href="{{ url_for('views.RecipeView', recipe_id=recipe.id) }}" role="button">View Recipe</a>
                                 </div>
                             </div>
                         </div>
