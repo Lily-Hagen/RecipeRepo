@@ -77,7 +77,7 @@
   }
 
   
-  function SignUpFormValidation(form, event){                
+  function AccountFormValidation(form, event){                
     validateFirstName(form, event)
     validateLastName(form, event)
     validateEmail(form, event)
@@ -131,7 +131,7 @@
     'use strict'
 
     const form = document.querySelector('#ModalAccountForm')
-    form.addEventListener('submit', event => SignUpFormValidation(form, event), false)
+    form.addEventListener('submit', event => AccountFormValidation(form, event), false)
   })()
 
   const form = document.querySelector('#ModalAccountForm')
