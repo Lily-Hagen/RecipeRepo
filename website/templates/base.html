@@ -9,15 +9,19 @@
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap" rel="stylesheet">
         <link href="/static/images/Logo-transparent.png" rel="logo">
+        <link href="/static/images/bacon-bbq-cheeseburger.jpg" rel="burger">
+        <link href="/static/images/chicken-parmesan.jpg" rel="chicken-parm">
+        <link href="/static/images/overnight-cinnamon-rolls.png" rel="cinnamon-rolls">
+        <link href="/static/images/chicken-tikka-masala.jpg" rel="tikka-masala">
 
         <style>
             body, .input-group-text {font-family: "Alexandria", sans-serif; font-optical-sizing:auto; font-weight:300; font-style:normal;}
             .nav-link {font-weight:500;}
             .btn-acc {color:#232323; background-color:#F8F9FA; border-color:#232323;} 
             .btn-acc:hover, .btn-acc:focus, .btn-acc:active, .btn-acc.active, .open .dropdown-toggle.btn-acc {color:#232323; background-color:#EBECED; border-color:#232323;}
-            .btn-login {color:#232323; background-color:#A8C6FA; border-color:#232323; width: 100px;} 
+            .btn-login {color:#232323; background-color:#A8C6FA; border-color:#232323;} 
             .btn-login:hover, .btn-login:focus, .btn-login:active, .btn-login.active, .open .dropdown-toggle.btn-login {color:#232323; background-color:#8CB4FF; border-color:#232323;}
-            .btn-signup {color:#232323; background-color:#92D36E; border-color:#232323; width: 100px;} 
+            .btn-signup {color:#232323; background-color:#92D36E; border-color:#232323;} 
             .btn-signup:hover, .btn-signup:focus, .btn-signup:active, .btn-signup.active, .open .dropdown-toggle.btn-signup {color:#232323; background-color:#7EB85F; border-color:#232323;}
             .badge-tag {color:#232323; background-color:#bad3ff; border-color:#232323;}
         </style>
@@ -25,10 +29,10 @@
         <title>{% block title %}Home{% endblock %}</title>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg" style="background-image: linear-gradient(to bottom, #FFBA53, #FFF4B9);">
+        <nav class="navbar navbar-expand-lg" style="background-image: linear-gradient(to bottom, #FFBA53, #FFF4B9); box-shadow: 0 .125rem .375rem rgba(0, 0, 0, .2);">
             <div class="container-fluid">
                 <!-- Logo that links to Home -->
-                <a class="navbar-brand fw-bold" href="/">
+                <a class="navbar-brand fw-bold" href="/" style="padding-left: 1rem;">
                     <img src="/static/images/Logo-transparent.png" height="30" width="129">
                 </a>
                 
@@ -36,17 +40,14 @@
                 <span class="navbar-brand mb-0 h1"></span>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <div class="navbar-nav">
-                        
                         <a class="nav-link" href="/">Home</a>
                         <a class="nav-link" href="/Explore">Explore</a>
                         <a class="nav-link" href="/MyCookbooks">My Cookbooks</a>
-                        <!-- <a class="nav-link" href="/login">Log In</a>
-                        <a class="nav-link" href="/signup">Sign Up</a> -->
                     </div>
                 </div>
 
                 <!-- Account Icon Dropdown -->
-                <div class="d-flex ms-auto dropdown">
+                <div class="d-flex ms-auto dropdown" style="padding-right: 0.5rem;">
                     <button class="btn btn-acc dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown">
                         <i class="bi bi-person-circle" style="font-size: 1.2rem; padding-right: 6px;"></i>
                     </button>
@@ -57,7 +58,7 @@
                 </div>
             </div>  
         </nav>
-        <hr style="border-width:4px; color:black; margin-top:0%;">
+        <hr style="border-width:4px; color:white; margin-top:0%;">
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
