@@ -24,6 +24,7 @@ class General_Recipe(db.Model):
     is_breakfast = db.Column(db.Integer)
     is_lunch = db.Column(db.Integer)
     is_dinner = db.Column(db.Integer)
+    is_snack = db.Column(db.Integer)
     is_appetizer = db.Column(db.Integer)
     is_entree = db.Column(db.Integer)
     is_dessert = db.Column(db.Integer)
