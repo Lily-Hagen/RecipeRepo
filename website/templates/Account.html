@@ -2,7 +2,7 @@
 {% block content %}
 <h1 align="center">Account Info</h1>
 <div class="container-fluid d-flex justify-content-center align-items-center">
-  <form method="POST" class="w-50 needs-validation" id="Account" novalidate>
+  <form class="w-50 needs-validation" id="Account" novalidate>
     <!-- Email Input with Person Icon -->
     <h3 align="center"> First Name </h3>
     <h6 align="center"> {{ current_user.first_name }} </h6>
@@ -13,7 +13,7 @@
 
     <!-- Submit button -->
     <div class="d-flex justify-content-center">
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal1">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal1" id="makeChangeBtn">
         Make Changes
       </button>
     </div>
@@ -26,7 +26,7 @@
 <div class="modal fade" id="modal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form method="POST" class="needs-validation" id="Account" novalidate>
+      <form method="POST" class="needs-validation" id="ModalAccountForm" novalidate>
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="exampleModalLabel">Change User Information</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -35,17 +35,19 @@
             <!-- Email Input with Person Icon -->
             <div class="input-group">
               <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-              <input type="first_name" class="form-control" name="first_name" id="first_name" value="{{ current_user.first_name }}">
+              <input type="text" class="form-control" name="first_name" id="first_name" value="{{ current_user.first_name }}">
+              <div class="invalid-feedback">Field Cannot Be Empty</div>
             </div>
         
               <div class="input-group">
                 <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-                <input type="last_name" class="form-control" name="last_name" id="last_name" value="{{ current_user.last_name }}">
+                <input type="text" class="form-control" name="last_name" id="last_name" value="{{ current_user.last_name }}">
+                <div class="invalid-feedback">Field Cannot Be Empty</div>
               </div>
             
               <div class="input-group">
                 <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-                <input type="email" class="form-control" name="email" id="email" value="{{ current_user.email }}">
+                <input type="text" class="form-control" name="email" id="email" value="{{ current_user.email }}">
                 <div class="invalid-feedback">Please Enter A Valid Email Address</div>
               </div>
         </div>
@@ -59,38 +61,94 @@
 </div>
 
 <script>
-  function LogInFormValidation(form, event){                
-      validateEmail(form, event)
+  
+  {
+      const makeChangeBtn = document.querySelector('#makeChangeBtn')
+      modalForm = document.querySelector('#ModalAccountForm')
+
+      makeChangeBtn.addEventListener('click', event => resetModalFields(modalForm, event), false)
+  }
+
+
+  function resetModalFields(form, event){
+    form.elements.first_name.value = "{{ current_user.first_name }}"
+    form.elements.last_name.value = "{{ current_user.last_name }}"
+    form.elements.email.value = "{{ current_user.email }}"
+  }
+
+  
+  function AccountFormValidation(form, event){                
+    validateFirstName(form, event)
+    validateLastName(form, event)
+    validateEmail(form, event)
+  }
+
+  function validateFirstName(form, event){
+    var first_name = form.elements.first_name.value
+    form.elements.first_name.classList.remove('is-valid', 'is-invalid')
+    if (first_name === ''){
+        if (event.type === 'submit'){
+            event.preventDefault()
+            event.stopPropagation()
+        }
+        form.elements.first_name.classList.add('is-invalid')
+    }else{
+        form.elements.first_name.classList.add('is-valid')
+    }
+  }
+
+  function validateLastName(form, event){
+    var last_name = form.elements.last_name.value
+    form.elements.last_name.classList.remove('is-valid', 'is-invalid')
+    if (last_name === ''){
+        if (event.type === 'submit'){
+            event.preventDefault()
+            event.stopPropagation()
+        }
+        form.elements.last_name.classList.add('is-invalid')
+    }else{
+        form.elements.last_name.classList.add('is-valid')
+    }
   }
 
   function validateEmail(form, event){
-      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-      
-      var email = form.elements.Email.value
-      form.elements.Email.classList.remove('is-valid', 'is-invalid')
-      if (!emailRegex.test(email)){
-          if (event.type === 'submit'){
-              event.preventDefault()
-              event.stopPropagation()
-          }
-          form.elements.Email.classList.add('is-invalid')
-      }else{
-          form.elements.Email.classList.add('is-valid')
-      }
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    
+    var email = form.elements.email.value
+    form.elements.email.classList.remove('is-valid', 'is-invalid')
+    if (!emailRegex.test(email)){
+        if (event.type === 'submit'){
+            event.preventDefault()
+            event.stopPropagation()
+        }
+        form.elements.email.classList.add('is-invalid')
+    }else{
+        form.elements.email.classList.add('is-valid')
+    }
   }
 
   (() => {
-      'use strict'
+    'use strict'
 
-      const form = document.querySelector('#Account')
-      form.addEventListener('submit', event => LogInFormValidation(form, event), false)
+    const form = document.querySelector('#ModalAccountForm')
+    form.addEventListener('submit', event => AccountFormValidation(form, event), false)
   })()
 
-  const form = document.querySelector('#Account')
+  const form = document.querySelector('#ModalAccountForm')
 
   {
-      const email = form.elements.email
-      email.addEventListener('input', event => validateEmail(form, event), false)
+    const firstName = form.elements.first_name
+    firstName.addEventListener('input', event => validateFirstName(form, event), false)
+  }
+
+  {
+    const lastName = form.elements.last_name
+    lastName.addEventListener('input', event => validateLastName(form, event), false)
+  }
+
+  {
+    const email = form.elements.email
+    email.addEventListener('input', event => validateEmail(form, event), false)
   }
 
 </script>
