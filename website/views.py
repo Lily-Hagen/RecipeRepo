@@ -50,7 +50,7 @@ def Explore():
             query = query.filter(General_Recipe.title.ilike(f"%{search_term}%"))
             query_string_list[0] = search_term
 
-        # Apply filter conditions directly
+        # Filter by meal type
         if breakfast:
             query = query.filter(General_Recipe.is_breakfast == True)
             query_string_list[1] = 'checked'
@@ -75,26 +75,44 @@ def Explore():
         if sidedish:
             query = query.filter(General_Recipe.is_sidedish == True)
             query_string_list[8] = 'checked'
-        if italian:
-            query = query.filter(General_Recipe.is_italian == True)
+
+        # Cuisine filters
+        cuisine_filters = []
+        if american:
+            cuisine_filters.append(General_Recipe.is_american)
             query_string_list[9] = 'checked'
         if chinese:
-            query = query.filter(General_Recipe.is_chinese == True)
+            cuisine_filters.append(General_Recipe.is_chinese)
             query_string_list[10] = 'checked'
-        if mexican:
-            query = query.filter(General_Recipe.is_mexican == True)
-            query_string_list[11] = 'checked'
         if indian:
-            query = query.filter(General_Recipe.is_indian == True)
+            cuisine_filters.append(General_Recipe.is_indian)
+            query_string_list[11] = 'checked'
+        if italian:
+            cuisine_filters.append(General_Recipe.is_italian)
             query_string_list[12] = 'checked'
-        if american:
-            query = query.filter(General_Recipe.is_american == True)
-            query_string_list[13] = 'checked'
         if mediterranean:
-            query = query.filter(General_Recipe.is_mediterranean == True)
+            cuisine_filters.append(General_Recipe.is_mediterranean)
+            query_string_list[13] = 'checked'
+        if mexican:
+            cuisine_filters.append(General_Recipe.is_mexican)
             query_string_list[14] = 'checked'
 
-        filtered_recipes = query.all()
+        # Query for recipes matching all selected cuisines
+        primary_query = query
+        for filter_condition in cuisine_filters:
+            primary_query = primary_query.filter(filter_condition == True)
+        primary_recipes = primary_query.all()
+
+        # Query for recipes matching any selected cuisine
+        secondary_query = query
+        if cuisine_filters:
+            secondary_query = secondary_query.filter(
+                db.or_(*[filter_condition == True for filter_condition in cuisine_filters])
+            )
+        secondary_recipes = secondary_query.all()
+
+        # Combine the primary and secondary recipes, ensuring no duplicates
+        filtered_recipes = primary_recipes + [recipe for recipe in secondary_recipes if recipe not in primary_recipes]
 
         return render_template("Explore.html", recipes=filtered_recipes, query_string_list=query_string_list)
     
