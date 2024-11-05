@@ -149,4 +149,9 @@ def Account():
     
 @views.route('/RecipeView', methods=['GET', 'POST'])
 def RecipeView():
-    return render_template("RecipeView.html")
+    recipe_id = request.args.get('recipe_id')
+    if (not recipe_id or request.method != 'GET'):
+        return redirect(url_for('views.Explore'))
+    else:
+        recipe = General_Recipe.query.filter_by(id=recipe_id).first()
+        return render_template("RecipeView.html", recipe=recipe)
