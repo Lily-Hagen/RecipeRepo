@@ -2,10 +2,14 @@
 {% block title %}RecipeView{% endblock %}
 
 {% block content %}
-<h1 align="center">Recipe View Page</h1>
 
-<!-- need to be able to pull from the recipe id that was CLICKED ON FROM THE EXPLORE PAGE -->
-  <!-- need most of them to be "seperate", so that I can put them in their own sections on the page -->
-  <!-- basically, idk the syntax to be like, {{recipe.id(gimmie JUST the ingredients section)}} or {{recipe.id(gimmie JUST the tags)}}-->
+{% if not recipe %}
+  <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <h2 align="center">Whoops Looks Like Recipe Is Not Found.</h2>
+  </div>
+{% else %}
+  <h1 align="center">{{ recipe.title }}</h1>
+
+{% endif %}
 
 {% endblock %}
