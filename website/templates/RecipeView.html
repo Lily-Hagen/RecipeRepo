@@ -5,10 +5,122 @@
 
 {% if not recipe %}
   <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-    <h2 align="center">Whoops Looks Like Recipe Is Not Found.</h2>
+    <h2 align="center">Whoops! Looks like this Recipe was not found.</h2>
   </div>
 {% else %}
-  <h1 align="center">{{ recipe.title }}</h1>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Left Column: Spacer -->
+      <div class="col-lg-1 col-md-1 col-sm-0 py-3"></div>
+
+      <!-- Middle Column: Recipe -->
+      <div class="col-lg-7 col-md-7 col-sm-12 py-3" style="margin-left: 25px; margin-right: 25px;">
+        <!-- <h1 align="center">{{ recipe.title }}</h1> -->
+
+        <!-- Card: Image and Details -->
+        <div class="card mb" style="margin-bottom: 25px;">
+          <div class="row g-0">
+            <!-- Image -->
+            <div class="col-md-5">
+              <img src="{{ recipe.image_url }}" class="img-fluid rounded-start" alt="No Image">
+            </div>
+            
+            <!-- Details -->
+            <div class="col-md-7">
+              <!-- Servings, Prep Time, Cook Time -->
+              <div class="card-body">
+                <h2 class="card-title">{{ recipe.title }}</h2>
+                <h5><span class="badge text-bg-secondary">Servings: {{ recipe.serving_size }}</span></h5>
+                <h5><span class="badge text-bg-secondary">Prep Time: {{ recipe.prep_time }}</span></h5>
+                <h5><span class="badge text-bg-secondary">Cook Time: {{ recipe.cook_time }}</span></h5>
+                
+                <!-- Tags -->
+                <div class="d-flex flex-wrap">
+                  {% if recipe.is_breakfast %}
+                    <h5><span class="badge badge-tag rounded-pill me-2">Breakfast</span></h5>
+                  {% endif %}
+                  {% if recipe.is_lunch %}
+                    <h5><span class="badge badge-tag rounded-pill me-2">Lunch</span></h5>
+                  {% endif %}
+                  {% if recipe.is_dinner %}
+                    <h5><span class="badge badge-tag rounded-pill me-2">Dinner</span></h5>
+                  {% endif %}
+                  {% if recipe.is_snack %}
+                    <h5><span class="badge badge-tag rounded-pill me-2">Snack</span></h5>
+                  {% endif %}
+                  {% if recipe.is_appetizer %}
+                    <h5><span class="badge badge-tag rounded-pill me-2">Appetizer</span></h5>
+                  {% endif %}
+                  {% if recipe.is_entree %}
+                    <h5><span class="badge badge-tag rounded-pill me-2">Entrée</span></h5>
+                  {% endif %}
+                  {% if recipe.is_dessert %}
+                    <h5><span class="badge badge-tag rounded-pill me-2">Dessert</span></h5>
+                  {% endif %}
+                  {% if recipe.is_sidedish %}
+                    <h5><span class="badge badge-tag rounded-pill me-2">Side Dish</span></h5>
+                  {% endif %}
+                  {% if recipe.is_american %}
+                    <h5><span class="badge badge-tag rounded-pill me-2">American</span></h5>
+                  {% endif %}
+                  {% if recipe.is_chinese %}
+                    <h5><span class="badge badge-tag rounded-pill me-2">Chinese</span></h5>
+                  {% endif %}
+                  {% if recipe.is_indian %}
+                    <h5><span class="badge badge-tag rounded-pill me-2">Indian</span></h5>
+                  {% endif %}
+                  {% if recipe.is_italian %}
+                    <h5><span class="badge badge-tag rounded-pill me-2">Italian</span></h5>
+                  {% endif %}
+                  {% if recipe.is_mediterranean %}
+                    <h5><span class="badge badge-tag rounded-pill me-2">Mediterranean</span></h5>
+                  {% endif %}
+                  {% if recipe.is_mexican %}
+                    <h5><span class="badge badge-tag rounded-pill me-2">Mexican</span></h5>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> <!-- end card -->
+
+        <!-- Ingredients -->
+        <div class="card mb" style="margin-bottom: 25px;">
+          <img src="/static/images/orange_bar.png" class="card-image-top" alt="..." style="height: 10px;">
+          <div class="card-body">
+            <h3>Ingredients</h3>
+            <ul>
+              {% for ingredient in ingredient_list %}
+                <li style="color: #ff9900; font-size: large; margin-bottom: -4px;"><h6><span style="color: #000">{{ ingredient }}</span></h6></li>
+              {% endfor %}
+            </ul>
+
+            <!-- Optional Ingredients/Toppings -->
+            {% if opt_ingredient_list[0] != "-" %}
+              <h3 style="margin-top: 30px;">Optional Ingredients / Toppings</h3>
+              <ul>
+                {% for opt_ingredient in opt_ingredient_list %}
+                  <li style="color: #ff9900; font-size: large; margin-bottom: -4px;"><h6><span style="color: #000">{{ opt_ingredient }}</span></h6></li>
+                {% endfor %}
+              </ul>         
+            {% endif %}
+
+          </div>
+        </div>
+
+        <!-- Directions -->
+        <h3>Directions</h3>
+        <ol>
+          {% for instruction in instruction_list %}
+            <li style="color: #ff9900; font-weight: bold; margin-bottom: 15px;"><h6><span class="lh-base" style="color: #000;">{{ instruction }}</span></h6></li>
+          {% endfor %}
+        </ol>
+      </div> <!-- end Middle Column -->
+          
+      <!-- Right Column (Where Notes would go for logged in users)-->
+      <div class="col-lg-3 col-md-3 col-sm-12 py-3"></div>
+    </div>
+  </div>
 
 {% endif %}
 

@@ -154,4 +154,8 @@ def RecipeView():
         return redirect(url_for('views.Explore'))
     else:
         recipe = General_Recipe.query.filter_by(id=recipe_id).first()
-        return render_template("RecipeView.html", recipe=recipe)
+        ingredient_list = recipe.ingredients.split('\n')
+        opt_ingredient_list = []
+        opt_ingredient_list = recipe.optional_ingredients.split('\n')
+        instruction_list = recipe.instructions.split('\n')
+        return render_template("RecipeView.html", recipe=recipe, ingredient_list=ingredient_list, opt_ingredient_list=opt_ingredient_list, instruction_list=instruction_list)

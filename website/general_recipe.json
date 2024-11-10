@@ -50,6 +50,9 @@
             "¼ cup canned water chestnuts, drained",
             "2 tbsps cornstarch"
         ],
+        "optional_ingredients": [
+            "-"
+        ],
         "instructions": [
             "Combine broccoli and water in a glass bowl; steam in microwave oven until slightly tender, 2 to 3 minutes.",
             "Heat peanut oil in a large skillet or wok over medium-high heat. Add garlic and cook until fragrant, about 1 minute.",
@@ -91,7 +94,7 @@
         "instructions": [
             "In a large bowl, gently mix ground beef with seasonings and Worchestire sauce. Be careful not to overmix.",
             "Form 4 large patties with the ground beef and set to the side. Or you can make burger 'balls' to smash down onto a preheated griddle like we do in the video below.",
-            "Preheat the grill to at least 400º Fahrenheit. Once grill has preheated cook burgers 4-5 minutes per side, or until the internal temperature tests 165ºF.",
+            "Preheat the grill to at least 400ºF. Once grill has preheated cook burgers 4-5 minutes per side, or until the internal temperature tests 165ºF.",
             "Once burgers are just about done, top burgers with 1-2 slices of cheese. Continue to cook to allow cheese to melt.",
             "To assemble burgers, add lettuce to the top of the bottom bun, then a burger, then tomato, onions, barbecue sauce, french fried onions and bacon.",
             "Place the bun on top of the burger and serve."
@@ -125,6 +128,9 @@
             "1 (8 oz) can tomato sauce",
             "1 cup heavy cream",
             "¼ cup chopped fresh cilantro"
+        ],
+        "optional_ingredients": [
+            "-"
         ],
         "instructions": [
             "Combine yogurt, lemon juice, 2 tsps cumin, cinnamon, cayenne, black pepper, ginger, and 1 tsp salt in a large bowl.",
@@ -164,6 +170,9 @@
             "1 ¼ cups sifted confectioners' sugar",
             "2 tbsps half-and-half cream"
         ],
+        "optional_ingredients": [
+            "-"
+        ],
         "instructions": [
             "Heat the milk in a small saucepan until it bubbles, then remove from heat. Add the butter and stir until melted; let cool until lukewarm.",
             "In a large mixing bowl, dissolve the yeast in the milk mixture. Add the sugar, 3 cups of flour, salt and eggs; stir well to combine. Add the remaining flour, ½ cup at a time, stirring well after each addition. When the dough has pulled together, turn it out onto a lightly floured surface and knead until smooth and supple, about 8 minutes.",
@@ -192,6 +201,9 @@
             "1 tbsp coarsely ground black pepper",
             "1 tbsp crushed red pepper",
             "1 tbsp dried oregano"
+        ],
+        "optional_ingredients": [
+            "-"
         ],
         "instructions": [
             "Preheat the oven to 250°F (120°C).",
@@ -228,6 +240,9 @@
             "1 cup low-fat plain yogurt",
             "Salt to taste"
         ],
+        "optional_ingredients": [
+            "-"
+        ],
         "instructions": [
             "Heat butter and vegetable oil in a large skillet over medium heat. Stir in chicken, onion, and garlic. Cook and stir until onion has softened and turned translucent, about 10 minutes.",
             "Stir in tomato paste, curry paste, curry powder, tandoori masala, and garam masala until no lumps of tomato paste remain.",
@@ -256,8 +271,8 @@
             "¼ tsp salt",
             "½ cup powdered sugar, or more as needed"
         ],
-        "optional_ingredients" : [
-           "-"
+        "optional_ingredients": [
+            "-"
         ],
         "instructions": [
             "Beat butter and sugar in a medium bowl with an electric mixer until light and fluffy. Mix in vanilla and water.",
@@ -286,8 +301,8 @@
             "2 tbsps kalamata olives, pitted and chopped",
             "1 tbsp capers, drained"
         ],
-        "optional_ingredients" : [
-           "-"
+        "optional_ingredients": [
+            "-"
         ],
         "instructions": [
             "Preheat the oven to 375°F (190°C).",
@@ -323,8 +338,8 @@
             "1 (15 ounce) can green beans, drained",
             "1 (15 ounce) can peas, drained"
         ],
-        "optional_ingredients" : [
-           "-"
+        "optional_ingredients": [
+            "-"
         ],
         "instructions": [
             "Stir the beef broth, carrots, celery, parsley, celery seed, and bay leaves into a slow cooker. Set slow cooker to High, cover, and cook until the vegetables are tender, about 2 hours.",
@@ -369,8 +384,8 @@
             "1 (8 ounce) can pineapple chunks, undrained",
             "2 tablespoons cornstarch"
         ],
-        "optional_ingredients" : [
-           "-"
+        "optional_ingredients": [
+            "-"
         ],
         "instructions": [
             "Place cubed pork in a medium bowl and season with soy sauce, salt, and sugar for marinade.",
@@ -412,8 +427,8 @@
             "2 ounces Parmesan cheese, grated, plus more for garnish",
             "1 teaspoon fresh lemon juice"
         ],
-        "optional_ingredients" : [
-           "-"
+        "optional_ingredients": [
+            "-"
         ],
         "instructions": [
             "Toss shrimp with salt and pepper in a large bowl until well combined. Heat a large high-sided skillet over medium heat. Add 1 tablespoon butter and 1 tablespoon sun-dried tomato oil; heat until shimmering, about 2 minutes. Add shrimp in an even layer, and cook until opaque and pink, 3 to 4 minutes, flipping shrimp halfway through cooking time. Transfer shrimp to a large plate.",
