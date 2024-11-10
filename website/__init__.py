@@ -60,18 +60,34 @@ def seed_recipe_data(app, General_Recipe):
 
             current_dir = os.path.dirname(os.path.abspath(__file__))
             file_path = os.path.join(current_dir, 'general_recipe.json')
-            json_data = json.load(open(file_path))
+            with open(file_path, encoding='utf-8') as f:
+                json_data = json.load(f)
 
             for recipe in json_data:
                 ingredients_string = "\n".join(recipe['ingredients'])
+                opt_ingredients_string = "\n".join(recipe['optional_ingredients'])
                 instructions_string = "\n".join(recipe['instructions'])
-                gen_rec = General_Recipe(title=recipe['title'], image_url=recipe['image_url'], ingredients=ingredients_string, instructions=instructions_string,
-                                         serving_size=recipe['serving_size'], prep_time=recipe['prep_time'], cook_time=recipe['cook_time'],
-                                         is_breakfast=recipe.get('is_breakfast', 0), is_lunch=recipe.get('is_lunch', 0), is_dinner=recipe.get('is_dinner', 0),
-                                         is_appetizer=recipe.get('is_appetizer', 0), is_entree=recipe.get('is_entree', 0), is_dessert=recipe.get('is_dessert', 0),
-                                         is_sidedish=recipe.get('is_sidedish', 0), is_italian=recipe.get('is_italian', 0), is_chinese=recipe.get('is_chinese', 0),
-                                         is_mexican=recipe.get('is_mexican', 0), is_indian=recipe.get('is_indian', 0), is_american=recipe.get('is_american', 0),
-                                         is_mediterranean=recipe.get('is_mediterranean', 0))
+                gen_rec = General_Recipe(title = recipe['title'], 
+                                        image_url = recipe['image_url'], 
+                                        ingredients = ingredients_string, 
+                                        optional_ingredients = opt_ingredients_string,
+                                        instructions = instructions_string,
+                                        serving_size = recipe['serving_size'], 
+                                        prep_time = recipe['prep_time'], 
+                                        cook_time = recipe['cook_time'],
+                                        is_breakfast = recipe.get('is_breakfast', 0), 
+                                        is_lunch = recipe.get('is_lunch', 0), 
+                                        is_dinner = recipe.get('is_dinner', 0),
+                                        is_appetizer = recipe.get('is_appetizer', 0), 
+                                        is_entree = recipe.get('is_entree', 0), 
+                                        is_dessert = recipe.get('is_dessert', 0),
+                                        is_sidedish = recipe.get('is_sidedish', 0), 
+                                        is_italian = recipe.get('is_italian', 0), 
+                                        is_chinese = recipe.get('is_chinese', 0),
+                                        is_mexican = recipe.get('is_mexican', 0), 
+                                        is_indian = recipe.get('is_indian', 0), 
+                                        is_american = recipe.get('is_american', 0),
+                                        is_mediterranean = recipe.get('is_mediterranean', 0))
                 db.session.add(gen_rec)
                 
             db.session.commit()
