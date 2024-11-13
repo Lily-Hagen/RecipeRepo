@@ -79,7 +79,7 @@
                     <h5><span class="badge badge-tag rounded-pill me-2">Mexican</span></h5>
                   {% endif %}
                 </div>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal1" id="makeChangeBtn">Add To Cookbook</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal1" id="addCookbookBtn">Add To Cookbook</button>
               </div>
             </div>
           </div>
@@ -127,7 +127,7 @@
 <div class="modal fade" id="modal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form method="POST" class="needs-validation" id="ModalAccountForm" novalidate>
+      <form method="POST" class="needs-validation" id="ModalAddCookbookForm" novalidate>
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="exampleModalLabel">Choose Cookbooks To Add Recipe To</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -135,7 +135,17 @@
         <div class="modal-body">
           {% if current_user.is_authenticated %}
             <!-- Email Input with Person Icon -->
-            <p>This is where the cookbooks associated with the user will be added for the user to be able to click and the submit.</p>
+            {% if current_user.cookbooks %}
+              <ul class="list-group">
+                {% for cb in current_user.cookbooks %}
+                  <li class="list-group-item"><input type="checkbox" name="{{ cb.id }}">{{ cb.title }}</li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p>Looks like you dont have any cookbooks. A cookbook must exist before you can add a recipe.</p>
+              <p>You can create and manage your cookbooks on the MyCookbooks page here:</p>
+              <a class="btn btn-login mt-auto" href="{{ url_for('views.Cookbooks') }}" role="button">MyCookbooks</a>
+            {% endif %}
           {% else %}
             <p>You Need To Login To Add A Recipe to you cookbooks.</p>
             <a class="btn btn-login mt-auto" href="{{ url_for('auth.login') }}" role="button">Login</a>
@@ -144,8 +154,10 @@
           {% endif %}
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="Submit" class="btn btn-success">Save</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          {% if current_user.is_authenticated and current_user.cookbooks %}
+            <button type="Submit" class="btn btn-success">Add</button>
+          {% endif %}
         </div>
       </form>
     </div>

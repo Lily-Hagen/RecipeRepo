@@ -184,6 +184,43 @@ def Account():
 def RecipeView():
     recipe_id = request.args.get('recipe_id')
     if (not recipe_id or request.method != 'GET'):
+        if (recipe_id and request.method == 'POST'):
+            recipe = General_Recipe.query.filter_by(id=recipe_id).first()
+            for cb in current_user.cookbooks:
+                if (request.form.get(str(cb.id))):
+                    new_cb_recipe = Cookbook_Recipe(user_id=current_user.id, cookbook_id=cb.id,
+                                        title = recipe.title, 
+                                        image_url = recipe.image_url, 
+                                        ingredients = recipe.ingredients, 
+                                        optional_ingredients = recipe.optional_ingredients,
+                                        instructions = recipe.instructions,
+                                        serving_size = recipe.serving_size, 
+                                        prep_time = recipe.prep_time, 
+                                        cook_time = recipe.cook_time,
+                                        notes = "",
+                                        is_breakfast = recipe.is_breakfast, 
+                                        is_lunch = recipe.is_lunch, 
+                                        is_dinner = recipe.is_dinner,
+                                        is_appetizer = recipe.is_appetizer, 
+                                        is_entree = recipe.is_entree, 
+                                        is_dessert = recipe.is_dessert,
+                                        is_sidedish = recipe.is_sidedish,
+                                        is_american = recipe.is_american,
+                                        is_chinese = recipe.is_chinese, 
+                                        is_indian = recipe.is_indian,
+                                        is_italian = recipe.is_italian,
+                                        is_mediterranean = recipe.is_mediterranean, 
+                                        is_mexican = recipe.is_mexican)
+                    db.session.add(new_cb_recipe)
+                    db.session.commit()
+                    
+            flash('Recipe Added Successfully!', category='success')
+            ingredient_list = recipe.ingredients.split('\n')
+            opt_ingredient_list = []
+            opt_ingredient_list = recipe.optional_ingredients.split('\n')
+            instruction_list = recipe.instructions.split('\n')
+            return render_template("RecipeView.html", recipe=recipe, ingredient_list=ingredient_list, opt_ingredient_list=opt_ingredient_list, instruction_list=instruction_list)
+        
         return redirect(url_for('views.Explore'))
     else:
         recipe = General_Recipe.query.filter_by(id=recipe_id).first()
