@@ -79,6 +79,7 @@
                     <h5><span class="badge badge-tag rounded-pill me-2">Mexican</span></h5>
                   {% endif %}
                 </div>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal1" id="makeChangeBtn">Add To Cookbook</button>
               </div>
             </div>
           </div>
@@ -121,6 +122,36 @@
       <div class="col-lg-3 col-md-3 col-sm-12 py-3"></div>
     </div>
   </div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST" class="needs-validation" id="ModalAccountForm" novalidate>
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Choose Cookbooks To Add Recipe To</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          {% if current_user.is_authenticated %}
+            <!-- Email Input with Person Icon -->
+            <p>This is where the cookbooks associated with the user will be added for the user to be able to click and the submit.</p>
+          {% else %}
+            <p>You Need To Login To Add A Recipe to you cookbooks.</p>
+            <a class="btn btn-login mt-auto" href="{{ url_for('auth.login') }}" role="button">Login</a>
+            <p>Dont have an account? Signup is one click away!</p>
+            <a class="btn btn-login mt-auto" href="{{ url_for('auth.sign_up') }}" role="button">Signup</a>
+          {% endif %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="Submit" class="btn btn-success">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 
 {% endif %}
 
