@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, url_for, redirect, flash, request
 from flask_login import login_user, login_required, logout_user, current_user
-from .models import User, General_Recipe
+from .models import User, General_Recipe, Cookbook, Cookbook_Recipe
 from . import db
 
 
@@ -11,15 +11,48 @@ def home():
     return render_template("Home.html")
 
 
-@views.route('/MyCookbooks')
+@views.route('/MyCookbooks', methods=['GET', 'POST'])
 # login functionality requirement
 def Cookbooks():
     if(current_user.is_authenticated):
-        return render_template("MyCookbooks.html", user=current_user)
+        if (request.method == 'POST'):
+            if (request.form.get('HiddenCreateCookbookFormIdentifier') == "CreateCookbookForm"):
+                title = request.form.get('cookbook_title')
+                description = request.form.get('cookbook_desc')
+                
+                new_cookbook = Cookbook(user_id=current_user.id, title=title, description=description, recipe_count=0)
+                db.session.add(new_cookbook)
+                db.session.commit()
+                flash('Cookbook Created!', category='success')
+            elif (request.form.get('HiddenDeleteForm') != ""):
+                cookbook_id = request.form.get('HiddenDeleteForm')
+                cookbook_exists = Cookbook.query.filter_by(user_id=current_user.id, id=cookbook_id).first()
+                if (cookbook_exists):
+                    associated_cookbook_recipes = Cookbook_Recipe.query.filter_by(user_id=current_user.id, cookbook_id=cookbook_id).all()
+                    if (associated_cookbook_recipes):
+                        for cb_recipe in associated_cookbook_recipes:
+                            db.session.delete(cb_recipe)
+                        db.session.commit()
+                    db.session.delete(cookbook_exists)
+                    db.session.commit()
+                    flash('Cookbook Successfully Deleted!', category='success')
+
+            return render_template("MyCookbooks.html", user=current_user)
+        else:    
+            return render_template("MyCookbooks.html", user=current_user)
     else:
         flash('You need to log in to view this page', category='error')
         return redirect(url_for('views.home'))
 
+
+@views.route('/CookbookView')
+def CookbookView():
+    cookbook_id = request.args.get('cookbook_id')
+    if (not cookbook_id or request.method != 'GET'):
+        return redirect(url_for('views.home'))
+    else:
+
+        return render_template("CookbookView.html", user=current_user, cookbook_id=cookbook_id)
 
 @views.route('/Explore', methods=['GET', 'POST'])
 def Explore():
