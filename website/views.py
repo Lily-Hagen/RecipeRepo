@@ -24,7 +24,7 @@ def Cookbooks():
                 db.session.add(new_cookbook)
                 db.session.commit()
                 flash('Cookbook Created!', category='success')
-            elif (request.form.get('HiddenDeleteForm') != ""):
+            elif (request.form.get('HiddenDeleteForm') != None):
                 cookbook_id = request.form.get('HiddenDeleteForm')
                 cookbook_exists = Cookbook.query.filter_by(user_id=current_user.id, id=cookbook_id).first()
                 if (cookbook_exists):
@@ -36,6 +36,16 @@ def Cookbooks():
                     db.session.delete(cookbook_exists)
                     db.session.commit()
                     flash('Cookbook Successfully Deleted!', category='success')
+            elif (request.form.get('HiddenEditCbForm') != None):
+                cookbook_id = request.form.get('HiddenEditCbForm')
+                cookbook_exists = Cookbook.query.filter_by(user_id=current_user.id, id=cookbook_id).first()
+                if (cookbook_exists):
+                    title = request.form.get('edit_cookbook_title')
+                    description = request.form.get('edit_cookbook_desc')
+                    cookbook_exists.title = title
+                    cookbook_exists.description = description
+                    db.session.commit()
+                    flash('Cookbook Successfully Changed!', category='success')
 
             return render_template("MyCookbooks.html", user=current_user)
         else:    
@@ -50,7 +60,7 @@ def CookbookView():
     cookbook_id = request.args.get('cookbook_id')
     if (not cookbook_id or request.method != 'GET'):
         if (cookbook_id and request.method == 'POST'):
-            if (request.form.get('CookbookViewFilterFormCheck')):
+            if (request.form.get('CookbookViewFilterFormCheck') != None):
                 search_term = request.form.get('searchbox', '').strip()
 
                 # Get filter values from the form
