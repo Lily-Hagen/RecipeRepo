@@ -46,6 +46,7 @@ class Cookbook(db.Model):
     title = db.Column(db.String(100))
     description = db.Column(db.String(1500))
     recipe_count = db.Column(db.Integer, default=0)
+    recipes = db.relationship('Cookbook_Recipe')
 
 
 class Cookbook_Recipe(db.Model):
