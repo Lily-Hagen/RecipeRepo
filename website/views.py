@@ -152,8 +152,22 @@ def CookbookView():
                 filtered_recipes = primary_recipes + [recipe for recipe in secondary_recipes if recipe not in primary_recipes]
                 
                 the_cookbook = Cookbook.query.filter_by(user_id=current_user.id, id=cookbook_id).first()
+
                 return render_template("CookbookView.html", user=current_user, the_cookbook=the_cookbook, recipes=filtered_recipes, query_string_list=query_string_list)
-        
+            
+            elif (request.form.get('HiddenDeleteForm') != None):
+                recipe_id = request.form.get('HiddenDeleteForm')
+                recipe_exists = Cookbook_Recipe.query.filter_by(id=recipe_id, user_id=current_user.id, cookbook_id=cookbook_id).first()
+                the_cookbook = Cookbook.query.filter_by(user_id=current_user.id, id=cookbook_id).first()
+                if (recipe_exists):
+                    db.session.delete(recipe_exists)
+                    the_cookbook.recipe_count -= 1
+                    db.session.commit()
+                    flash('Recipe Successfully Deleted!', category='success')
+
+                cookbook_recipes = Cookbook_Recipe.query.filter_by(user_id=current_user.id, cookbook_id=cookbook_id).all()
+                return render_template("CookbookView.html", user=current_user, the_cookbook=the_cookbook, recipes=cookbook_recipes, query_string_list=['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''])
+                
         return redirect(url_for('views.home'))
     else:
         the_cookbook = Cookbook.query.filter_by(user_id=current_user.id, id=cookbook_id).first()
