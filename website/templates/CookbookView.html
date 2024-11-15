@@ -81,6 +81,7 @@
                                     <p class="card-text" style="margin-bottom: 2%;"><strong>Servings:</strong> {{ recipe.serving_size }}</p>
                                     <p class="card-text" style="margin-bottom: 2%;"><strong>Prep Time:</strong> {{ recipe.prep_time }}</p>
                                     <p class="card-text"><strong>Cook Time:</strong> {{ recipe.cook_time }}</p>
+                                    <a class="btn btn-login mt-auto" href="{{ url_for('views.CookbookRecipeView', recipe_id=recipe.id, cookbook_id=the_cookbook.id) }}" role="button">View Recipe</a>
                                     <button type="button" id="recipeDeletBtn" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteRecipeModal{{ recipe.id }}">Delete</button>
                                 </div>
                             </div>
