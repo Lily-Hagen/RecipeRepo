@@ -175,6 +175,33 @@ def CookbookView():
         return render_template("CookbookView.html", user=current_user, the_cookbook=the_cookbook, recipes=cookbook_recipes, query_string_list=['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''])
 
 
+@views.route('/CookbookRecipeView', methods=['GET', 'POST'])
+def CookbookRecipeView():
+    recipe_id = request.args.get('recipe_id')
+    cookbook_id = request.args.get('cookbook_id')
+    if (not recipe_id or not cookbook_id or request.method != 'GET'):
+        notes_data = request.form.get('notesText')
+        if (recipe_id and cookbook_id and notes_data != None):
+            recipe = Cookbook_Recipe.query.filter_by(user_id=current_user.id, cookbook_id=cookbook_id, id=recipe_id).first()
+            ingredient_list = recipe.ingredients.split('\n')
+            opt_ingredient_list = []
+            opt_ingredient_list = recipe.optional_ingredients.split('\n')
+            instruction_list = recipe.instructions.split('\n')
+            
+            recipe.notes = notes_data
+            db.session.commit()
+            flash('Recipe Notes Updated Successfully', category='success')
+
+            return render_template("CookbookRecipeView.html", recipe=recipe, ingredient_list=ingredient_list, opt_ingredient_list=opt_ingredient_list, instruction_list=instruction_list)
+
+        return redirect(url_for('views.home'))
+    else:
+        recipe = Cookbook_Recipe.query.filter_by(user_id=current_user.id, cookbook_id=cookbook_id, id=recipe_id).first()
+        ingredient_list = recipe.ingredients.split('\n')
+        opt_ingredient_list = []
+        opt_ingredient_list = recipe.optional_ingredients.split('\n')
+        instruction_list = recipe.instructions.split('\n')
+        return render_template("CookbookRecipeView.html", recipe=recipe, ingredient_list=ingredient_list, opt_ingredient_list=opt_ingredient_list, instruction_list=instruction_list)
 
 @views.route('/Explore', methods=['GET', 'POST'])
 def Explore():
