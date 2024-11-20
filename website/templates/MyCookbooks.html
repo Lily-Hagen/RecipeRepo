@@ -4,33 +4,20 @@
 {% block content %}
 <h1 align="center">My Cookbooks</h1>
 <div class="container-fluid">
-    <div class="row">
-        <div class="col">
-            <h3 align="center">~ How To Get Started ~</h3>
-            <p align="center">Click the "Create New CookBook" Button and enter all needed information</p>
-            <p align="center">Then its time to start adding recipes to your cookbooks! Go to the Explore page and find recipes you want to add.</p>
-            <p align="center">Now after adding recipes into your cookbooks you will be able to click into each cookbook and view all of your recipes.</p>
-            <p align="center">Additioanlly with RecipeRepo you have contol to make edits to each recipe via the Notes section.</p>
+  <div class="row">
+    <!-- Left Column: Spacer -->
+    <div class="col-lg-1 col-md-1"></div>
 
-
-            <h3 align="center">Click To Add A CookBook</h3>
-            <div class="d-flex justify-content-center" style="margin-bottom: 30px;">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCookBookModal" id="addCookBookBtn">Create New CookBook</button>
+    <!-- addCookBookModal -->
+    <div class="modal fade" id="addCookBookModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form method="POST" class="needs-validation" id="ModalCookBookForm" novalidate>
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Create New CookBook</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        </div>
-    </div>
-</div>
-
-<!-- addCookBookModal -->
-<div class="modal fade" id="addCookBookModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <form method="POST" class="needs-validation" id="ModalCookBookForm" novalidate>
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Create New CookBook</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
+            <div class="modal-body">
               <label for="cookbook_title" class="form-label">Cookbook Title</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="bi bi-asterisk"></i></span>
@@ -43,138 +30,59 @@
                 <span class="input-group-text"><i class="bi bi-asterisk"></i></span>
                 <textarea class="form-control" name="cookbook_desc" id="cookbook_desc"></textarea>
               </div>
-          </div>
+            </div>
 
-          <input type="hidden" id="HiddenCreateCookbookFormIdentifier" name="HiddenCreateCookbookFormIdentifier" value="CreateCookbookForm">
+            <input type="hidden" id="HiddenCreateCookbookFormIdentifier" name="HiddenCreateCookbookFormIdentifier" value="CreateCookbookForm">
 
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="Submit" class="btn btn-primary">Create</button>
-          </div>
-        </form>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="Submit" class="btn btn-primary">Create</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
+
+    <!-- Middle Column (Cookbook Cards) -->
+    <div class="col">
+      <button type="button" class="btn btn-signup" data-bs-toggle="modal" data-bs-target="#addCookBookModal" id="addCookBookBtn" style="margin-top: -10px; margin-bottom: 10px;">
+        <i class="bi bi-journal-plus" style="padding-right: 6px;"></i>New Cookbook
+      </button>
+      {% if user.cookbooks %}
+        <div class="row">
+          {% for cb in user.cookbooks %}
+            <!-- Cookbook Card -->
+            <div class="col-lg-3 col-md-4 col-sm-12 py-2">
+              <div class="card h-100" style="box-shadow: -3px 3px 8px 0 rgba(100, 100, 100, 0.2);">
+                <div class="card-header text-white" style="background-color: #ffaf3f;"></div>
+                {% if cb.recipes %}
+                  <img class="card-img-top rounded-0" src="{{ cb.recipes[0].image_url }}">
+                {% else %}
+                <img class="card-img-top rounded-0" src="/static/images/image-placeholder.jpg">
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title">{{ cb.title }}</h5>
+                  <p class="card-text" style="margin-bottom: 2%;"><strong>Recipes:</strong> {{ cb.recipe_count }}</p>
+                  <a class="stretched-link mt-auto" href="{{ url_for('views.CookbookView', cookbook_id=cb.id) }}" role="button"></a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% if not user.cookbooks %}
+        <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+          <h2 align="center">Looks Like You Currently Dont Have Any Cookbooks.</h2>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Right Column: Spacer -->
+    <div class="col-lg-1 col-md-1"></div>
+  </div>
 </div>
 
-  {% if user.cookbooks %}
-  <div class="row">
-      {% for cb in user.cookbooks %}
-          <!-- Recipe Card -->
-          <div class="col-lg-3 col-md-6 col-sm-12 py-3">
-              <div class="card w-100 h-100">
-                  <div class="card-body d-flex flex-column">
-                      <h5 class="card-title">{{ cb.title }}</h5>
-                      <p class="card-text" style="margin-bottom: 2%;"><strong>Description:</strong> {{ cb.description }}</p>
-                      <p class="card-text" style="margin-bottom: 2%;"><strong>Recipe Count:</strong> {{ cb.recipe_count }}</p>
-                      <a class="btn btn-login mt-auto" href="{{ url_for('views.CookbookView', cookbook_id=cb.id) }}" role="button">View Cookbook</a>
-                      <button type="button" id="cookbookEditBtn" class="btn btn-secondary cookbookEditBtn" data-bs-toggle="modal" data-bs-target="#editCookbookModal{{ cb.id }}">Edit Cookbook</button>
-                      <button type="button" id="cookbookDeletBtn" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCookbookModal{{ cb.id }}">Delete</button>
-                  </div>
-              </div>
-          </div>
-
-          <!-- editCookbookModal -->
-          <div class="modal fade editCbModalclass" id="editCookbookModal{{ cb.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form method="POST" class="needs-validation editCookbookModalForm" id="editCookbookModalForm" novalidate>
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Cookbook</h1>
-                            <button type="button" class="btn-close editCookbookModalFormCloseBtn" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <label for="edit_cookbook_title" class="form-label">Cookbook Title</label>
-                          <div class="input-group">
-                            <span class="input-group-text"><i class="bi bi-asterisk"></i></span>
-                            <input type="text" class="form-control" name="edit_cookbook_title" id="edit_cookbook_title" value="{{ cb.title }}">
-                            <div class="invalid-feedback">Field Cannot Be Empty</div>
-                          </div>
-                          
-                          <label for="edit_cookbook_desc" class="form-label">Cookbook Description</label>
-                          <div class="input-group">
-                            <span class="input-group-text"><i class="bi bi-asterisk"></i></span>
-                            <textarea class="form-control" name="edit_cookbook_desc" id="edit_cookbook_desc" value="{{ cb.description }}">{{ cb.description }}</textarea>
-                          </div>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary editCookbookModalFormCancelBtn" data-bs-dismiss="modal">Cancel</button>
-                          <button type="Submit" class="btn btn-success" name="editModalSubmitBtn" id="editModalSubmitBtn">Save</button>
-                        </div>
-                        <input type="hidden" id="HiddenEditCbForm" name="HiddenEditCbForm" value="{{ cb.id }}">
-                        <input type="hidden" id="HiddenEditCbTitle" name="HiddenEditCbTitle" value="{{ cb.title }}">
-                        <input type="hidden" id="HiddenEditCbDesc" name="HiddenEditCbDesc" value="{{ cb.description }}">
-                    </form>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- deleteCookbookModal -->
-        <div class="modal fade" id="deleteCookbookModal{{ cb.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form method="POST" class="needs-validation" id="deleteCookbookModalForm" novalidate>
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Are You Sure You Want To Delete?</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="Submit" class="btn btn-danger" id="finalDeleteSubmitBtn" name="finalDeleteSubmitBtn">Delete</button>
-                        </div>
-
-                        <input type="hidden" id="HiddenDeleteForm" name="HiddenDeleteForm" value="{{ cb.id }}">
-                    </form>
-                </div>
-            </div>
-        </div>
-      {% endfor %}
-  </div>
-{% endif %}
-{% if not user.cookbooks %}
-  <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-      <h2 align="center">Looks Like You Currently Dont Have Any Cookbooks.</h2>
-  </div>
-{% endif %}
-
 <script>
-  
-  {
-    const allEditModals = document.querySelectorAll('.editCbModalclass')
-
-    for (const modl of allEditModals){
-      const cancelBtn = modl.querySelector('.editCookbookModalFormCancelBtn')
-      cancelBtn.addEventListener('click', event => resetEditCbModalFields(modl, event), false)
-      const closeBtn = modl.querySelector('.editCookbookModalFormCloseBtn')
-      closeBtn.addEventListener('click', event => resetEditCbModalFields(modl, event), false)
-      
-      const form = modl.querySelector('.editCookbookModalForm')
-      form.elements.edit_cookbook_title.addEventListener('input', event => validateEditCookbookTitle(form, event), false)
-      form.addEventListener('submit', event => validateEditCookbookTitle(form, event), false)
-    }
-  }
-
-  function resetEditCbModalFields(modl, event){
-    const form = modl.querySelector('.editCookbookModalForm')
-    form.elements.edit_cookbook_title.value = form.elements.HiddenEditCbTitle.value
-    form.elements.edit_cookbook_desc.value = form.elements.HiddenEditCbDesc.value
-    form.elements.edit_cookbook_title.classList.remove('is-valid', 'is-invalid')
-    form.elements.edit_cookbook_desc.classList.remove('is-valid', 'is-invalid')
-  }
-
-  function validateEditCookbookTitle(form, event){
-    var cookbook_title = form.elements.edit_cookbook_title.value
-    form.elements.edit_cookbook_title.classList.remove('is-valid', 'is-invalid')
-    if (cookbook_title === ''){
-        if (event.type === 'submit'){
-            event.preventDefault()
-            event.stopPropagation()
-        }
-        form.elements.edit_cookbook_title.classList.add('is-invalid')
-    }else{
-        form.elements.edit_cookbook_title.classList.add('is-valid')
-    }
-  }
 
   {
       const createCookBookBtn = document.querySelector('#addCookBookBtn')
