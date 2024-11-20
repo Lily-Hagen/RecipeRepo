@@ -24,28 +24,6 @@ def Cookbooks():
                 db.session.add(new_cookbook)
                 db.session.commit()
                 flash('Cookbook Created!', category='success')
-            elif (request.form.get('HiddenDeleteForm') != None):
-                cookbook_id = request.form.get('HiddenDeleteForm')
-                cookbook_exists = Cookbook.query.filter_by(user_id=current_user.id, id=cookbook_id).first()
-                if (cookbook_exists):
-                    associated_cookbook_recipes = Cookbook_Recipe.query.filter_by(user_id=current_user.id, cookbook_id=cookbook_id).all()
-                    if (associated_cookbook_recipes):
-                        for cb_recipe in associated_cookbook_recipes:
-                            db.session.delete(cb_recipe)
-                        db.session.commit()
-                    db.session.delete(cookbook_exists)
-                    db.session.commit()
-                    flash('Cookbook Successfully Deleted!', category='success')
-            elif (request.form.get('HiddenEditCbForm') != None):
-                cookbook_id = request.form.get('HiddenEditCbForm')
-                cookbook_exists = Cookbook.query.filter_by(user_id=current_user.id, id=cookbook_id).first()
-                if (cookbook_exists):
-                    title = request.form.get('edit_cookbook_title')
-                    description = request.form.get('edit_cookbook_desc')
-                    cookbook_exists.title = title
-                    cookbook_exists.description = description
-                    db.session.commit()
-                    flash('Cookbook Successfully Changed!', category='success')
 
             return render_template("MyCookbooks.html", user=current_user)
         else:    
@@ -60,103 +38,8 @@ def CookbookView():
     cookbook_id = request.args.get('cookbook_id')
     if (not cookbook_id or request.method != 'GET'):
         if (cookbook_id and request.method == 'POST'):
-            if (request.form.get('CookbookViewFilterFormCheck') != None):
-                search_term = request.form.get('searchbox', '').strip()
-
-                # Get filter values from the form
-                breakfast = request.form.get('is_breakfast')
-                lunch = request.form.get('is_lunch')
-                dinner = request.form.get('is_dinner')
-                snack = request.form.get('is_snack')
-                appetizer = request.form.get('is_appetizer')
-                entree = request.form.get('is_entree')
-                dessert = request.form.get('is_dessert')
-                sidedish = request.form.get('is_sidedish')
-                italian = request.form.get('is_italian')
-                chinese = request.form.get('is_chinese')
-                mexican = request.form.get('is_mexican')
-                indian = request.form.get('is_indian')
-                american = request.form.get('is_american')
-                mediterranean = request.form.get('is_mediterranean')
-
-                query_string_list = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
-                query = Cookbook_Recipe.query.filter(Cookbook_Recipe.user_id==current_user.id, Cookbook_Recipe.cookbook_id==cookbook_id)
-
-                # Apply search term filter if present
-                if search_term:
-                    query = query.filter(Cookbook_Recipe.title.ilike(f"%{search_term}%"))
-                    query_string_list[0] = search_term
-
-                # Filter by meal type
-                if breakfast:
-                    query = query.filter(Cookbook_Recipe.is_breakfast == True)
-                    query_string_list[1] = 'checked'
-                if lunch:
-                    query = query.filter(Cookbook_Recipe.is_lunch == True)
-                    query_string_list[2] = 'checked'
-                if dinner:
-                    query = query.filter(Cookbook_Recipe.is_dinner == True)
-                    query_string_list[3] = 'checked'
-                if snack:
-                    query = query.filter(Cookbook_Recipe.is_snack == True)
-                    query_string_list[4] = 'checked'
-                if appetizer:
-                    query = query.filter(Cookbook_Recipe.is_appetizer == True)
-                    query_string_list[5] = 'checked'
-                if entree:
-                    query = query.filter(Cookbook_Recipe.is_entree == True)
-                    query_string_list[6] = 'checked'
-                if dessert:
-                    query = query.filter(Cookbook_Recipe.is_dessert == True)
-                    query_string_list[7] = 'checked'
-                if sidedish:
-                    query = query.filter(Cookbook_Recipe.is_sidedish == True)
-                    query_string_list[8] = 'checked'
-
-                # Cuisine filters
-                cuisine_filters = []
-                if american:
-                    cuisine_filters.append(Cookbook_Recipe.is_american)
-                    query_string_list[9] = 'checked'
-                if chinese:
-                    cuisine_filters.append(Cookbook_Recipe.is_chinese)
-                    query_string_list[10] = 'checked'
-                if indian:
-                    cuisine_filters.append(Cookbook_Recipe.is_indian)
-                    query_string_list[11] = 'checked'
-                if italian:
-                    cuisine_filters.append(Cookbook_Recipe.is_italian)
-                    query_string_list[12] = 'checked'
-                if mediterranean:
-                    cuisine_filters.append(Cookbook_Recipe.is_mediterranean)
-                    query_string_list[13] = 'checked'
-                if mexican:
-                    cuisine_filters.append(Cookbook_Recipe.is_mexican)
-                    query_string_list[14] = 'checked'
-
-                # Query for recipes matching all selected cuisines
-                primary_query = query
-                for filter_condition in cuisine_filters:
-                    primary_query = primary_query.filter(filter_condition == True)
-                primary_recipes = primary_query.all()
-
-                # Query for recipes matching any selected cuisine
-                secondary_query = query
-                if cuisine_filters:
-                    secondary_query = secondary_query.filter(
-                        db.or_(*[filter_condition == True for filter_condition in cuisine_filters])
-                    )
-                secondary_recipes = secondary_query.all()
-
-                # Combine the primary and secondary recipes, ensuring no duplicates
-                filtered_recipes = primary_recipes + [recipe for recipe in secondary_recipes if recipe not in primary_recipes]
-                
-                the_cookbook = Cookbook.query.filter_by(user_id=current_user.id, id=cookbook_id).first()
-
-                return render_template("CookbookView.html", user=current_user, the_cookbook=the_cookbook, recipes=filtered_recipes, query_string_list=query_string_list)
-            
-            elif (request.form.get('HiddenDeleteForm') != None):
-                recipe_id = request.form.get('HiddenDeleteForm')
+            if (request.form.get('HiddenRecipeDeleteForm') != None):
+                recipe_id = request.form.get('HiddenRecipeDeleteForm')
                 recipe_exists = Cookbook_Recipe.query.filter_by(id=recipe_id, user_id=current_user.id, cookbook_id=cookbook_id).first()
                 the_cookbook = Cookbook.query.filter_by(user_id=current_user.id, id=cookbook_id).first()
                 if (recipe_exists):
@@ -166,13 +49,41 @@ def CookbookView():
                     flash('Recipe Successfully Deleted!', category='success')
 
                 cookbook_recipes = Cookbook_Recipe.query.filter_by(user_id=current_user.id, cookbook_id=cookbook_id).all()
-                return render_template("CookbookView.html", user=current_user, the_cookbook=the_cookbook, recipes=cookbook_recipes, query_string_list=['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''])
+                return render_template("CookbookView.html", user=current_user, the_cookbook=the_cookbook, recipes=cookbook_recipes)
+            
+            elif (request.form.get('HiddenCbDeleteForm') != None):
+                cookbook_id = request.form.get('HiddenCbDeleteForm')
+                cookbook_exists = Cookbook.query.filter_by(user_id=current_user.id, id=cookbook_id).first()
+                if (cookbook_exists):
+                    associated_cookbook_recipes = Cookbook_Recipe.query.filter_by(user_id=current_user.id, cookbook_id=cookbook_id).all()
+                    if (associated_cookbook_recipes):
+                        for cb_recipe in associated_cookbook_recipes:
+                            db.session.delete(cb_recipe)
+                        db.session.commit()
+                    db.session.delete(cookbook_exists)
+                    db.session.commit()
+                    flash('Cookbook Successfully Deleted!', category='success')
+                return redirect(url_for('views.Cookbooks', user=current_user))
+            
+            elif (request.form.get('HiddenEditCbForm') != None):
+                cookbook_id = request.form.get('HiddenEditCbForm')
+                cookbook_exists = Cookbook.query.filter_by(user_id=current_user.id, id=cookbook_id).first()
+                if (cookbook_exists):
+                    title = request.form.get('edit_cookbook_title')
+                    description = request.form.get('edit_cookbook_desc')
+                    cookbook_exists.title = title
+                    cookbook_exists.description = description
+                    db.session.commit()
+                    flash('Cookbook Successfully Changed!', category='success')
+                cookbook_recipes = Cookbook_Recipe.query.filter_by(user_id=current_user.id, cookbook_id=cookbook_id).all()
+                return render_template("CookbookView.html", user=current_user, the_cookbook=cookbook_exists, recipes=cookbook_recipes)
+
                 
         return redirect(url_for('views.home'))
     else:
         the_cookbook = Cookbook.query.filter_by(user_id=current_user.id, id=cookbook_id).first()
         cookbook_recipes = Cookbook_Recipe.query.filter_by(user_id=current_user.id, cookbook_id=cookbook_id).all()
-        return render_template("CookbookView.html", user=current_user, the_cookbook=the_cookbook, recipes=cookbook_recipes, query_string_list=['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''])
+        return render_template("CookbookView.html", user=current_user, the_cookbook=the_cookbook, recipes=cookbook_recipes)
 
 
 @views.route('/CookbookRecipeView', methods=['GET', 'POST'])

@@ -1,121 +1,171 @@
 {% extends "base.html" %} 
-{% block title %}CookbookView{% endblock %}
+{% block title %}{{ the_cookbook.title }}{% endblock %}
 
 {% block content %}
 <h1 align="center">{{ the_cookbook.title }}</h1>
 {% if the_cookbook.description %}
-    <h5 align="center">{{ the_cookbook.description }}</h5>
+    <h6 align="center">{{ the_cookbook.description }}</h6>
 {% endif %}
 <div class="container-fluid">
-    <div class="row">
-        <!-- Left Column (Filter and Search) -->
-        <div class="col-lg-2 col-md-2" style="margin-left: 25px; margin-right: 25px;">
-            <form method="POST" id="CookbookViewFilterForm" novalidate>
-                <div class="sticky-top" style="top: 70px;">
-                    <div class="card mb-2">
-                        <div class="card-body">
-                            <!-- Search Bar -->
-                            <h5 class="card-title">Search</h5>
-                            <input type="text" class="form-control mb-3" name="searchbox" placeholder="Search Recipes..." value="{{ query_string_list[0] }}">
-                            
-                            <!-- Filter by Tag Section -->
-                            <h5 class="card-title d-inline">Filter by <span class="badge badge-tag rounded-pill">Tag</span></h5>
-                            
-                            <!-- Time of Day Section -->
-                            <div class="mb-3">
-                                <h6>Time of Day</h6>
-                                <ul class="list-group">
-                                    <li class="list-group-item"><input type="checkbox" name="is_breakfast" {{ query_string_list[1] }}> Breakfast</li>
-                                    <li class="list-group-item"><input type="checkbox" name="is_lunch" {{ query_string_list[2] }}> Lunch</li>
-                                    <li class="list-group-item"><input type="checkbox" name="is_dinner" {{ query_string_list[3] }}> Dinner</li>
-                                    <li class="list-group-item"><input type="checkbox" name="is_snack" {{ query_string_list[4] }}> Snack</li>
-                                </ul>
-                            </div>
+  <div class="row">
+    <!-- Left Column (Spacer) -->
+    <div class="col-lg-1 col-md-1"></div>
 
-                            <!-- Type of Food Section -->
-                            <div class="mb-3">
-                                <h6>Type of Food</h6>
-                                <ul class="list-group">
-                                    <li class="list-group-item"><input type="checkbox" name="is_appetizer" {{ query_string_list[5] }}> Appetizer</li>
-                                    <li class="list-group-item"><input type="checkbox" name="is_entree" {{ query_string_list[6] }}> Entree</li>
-                                    <li class="list-group-item"><input type="checkbox" name="is_dessert" {{ query_string_list[7] }}> Dessert</li>
-                                    <li class="list-group-item"><input type="checkbox" name="is_sidedish" {{ query_string_list[8] }}> Side Dish</li>
-                                </ul>
-                            </div>
+    <!-- Right Column (Recipe Cards) -->
+    <div class="col">
 
-                            <!-- Type of Cuisine Section -->
-                            <div class="mb-3">
-                                <h6>Type of Cuisine</h6>
-                                <ul class="list-group">
-                                    <li class="list-group-item"><input type="checkbox" name="is_american" {{ query_string_list[9] }}> American</li>
-                                    <li class="list-group-item"><input type="checkbox" name="is_chinese" {{ query_string_list[10] }}> Chinese</li>
-                                    <li class="list-group-item"><input type="checkbox" name="is_indian" {{ query_string_list[11] }}> Indian</li>
-                                    <li class="list-group-item"><input type="checkbox" name="is_italian" {{ query_string_list[12] }}> Italian</li>
-                                    <li class="list-group-item"><input type="checkbox" name="is_mediterranean" {{ query_string_list[13] }}> Mediterranean</li>
-                                    <li class="list-group-item"><input type="checkbox" name="is_mexican" {{ query_string_list[14] }}> Mexican</li>
-                                </ul>
-                            </div>
+      <!-- Manage/Delete Cookbook-->
+      <div class="btn-toolbar d-flex align-items-center" role="toolbar" style="padding-right: 0.5rem;">
+        <div class="btn-group me-2" role="group">
+          <button type="button" id="CookbookDeletebtn" class="btn btn-red" data-bs-toggle="modal" data-bs-target="#deleteCookbookModal{{ the_cookbook.id }}">Delete Cookbook</button>
+        </div>
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-gray" data-bs-toggle="modal" data-bs-target="#editCookbookModal">Edit Cookbook</button>
+        </div>
+      </div>
 
-                            <!-- Submit Button -->
-                            <button type="submit" class="btn btn-signup">Apply Filters</button>
-                        </div>
-                    </div>
-                </div>
+      <!-- editCookbookModal -->
+      <div class="modal fade editCbModalclass" id="editCookbookModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-content">
+          <form method="POST" class="needs-validation editCookbookModalForm" id="editCookbookModalForm" novalidate>
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Cookbook</h1>
+              <button type="button" class="btn-close editCookbookModalFormCloseBtn" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <label for="edit_cookbook_title" class="form-label"><strong>Cookbook Title</strong></label>
+              <div class="input-group">
+                <input type="text" class="form-control" name="edit_cookbook_title" id="edit_cookbook_title" value="{{ the_cookbook.title }}">
+                <div class="invalid-feedback">Field Cannot Be Empty</div>
+              </div>
+              
+              <label for="edit_cookbook_desc" class="form-label" style="margin-top: 8px;"><strong>Cookbook Description</strong></label>
+              <div class="input-group">
+                <textarea class="form-control" name="edit_cookbook_desc" id="edit_cookbook_desc" value="{{ the_cookbook.description }}">{{ the_cookbook.description }}</textarea>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary editCookbookModalFormCancelBtn" data-bs-dismiss="modal">Cancel</button>
+              <button type="Submit" class="btn btn-success" name="editModalSubmitBtn" id="editModalSubmitBtn">Save</button>
+            </div>
+            <input type="hidden" id="HiddenEditCbForm" name="HiddenEditCbForm" value="{{ the_cookbook.id }}">
+            <input type="hidden" id="HiddenEditCbTitle" name="HiddenEditCbTitle" value="{{ the_cookbook.title }}">
+            <input type="hidden" id="HiddenEditCbDesc" name="HiddenEditCbDesc" value="{{ the_cookbook.description }}">
+          </form>
+        </div>
+      </div>
 
-                <input type="hidden" id="CookbookViewFilterFormCheck" name="CookbookViewFilterFormCheck" value="True">
+      <!-- deleteCookbookModal -->
+      <div class="modal fade" id="deleteCookbookModal{{ the_cookbook.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-content">
+            <form method="POST" class="needs-validation" id="deleteCookbookModalForm" novalidate>
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Are You Sure You Want To Delete?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="Submit" class="btn btn-danger" id="finalDeleteSubmitBtn" name="finalDeleteSubmitBtn">Delete</button>
+              </div>
+
+              <input type="hidden" id="HiddenCbDeleteForm" name="HiddenCbDeleteForm" value="{{ the_cookbook.id }}">
             </form>
         </div>
+      </div>
 
-        <!-- Right Column (Recipe Cards) -->
-        <div class="col-lg-9 col-md-8">
-            {% if recipes %}
-                <div class="row">
-                    {% for recipe in recipes %}
-                        <!-- Recipe Card -->
-                        <div class="col-lg-3 col-md-6 col-sm-12 py-3">
-                            <div class="card w-100 h-100">
-                                <img class="card-img-top" src="{{ recipe.image_url }}" alt="No Image">
-                                
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title">{{ recipe.title }}</h5>
-                                    <p class="card-text" style="margin-bottom: 2%;"><strong>Servings:</strong> {{ recipe.serving_size }}</p>
-                                    <p class="card-text" style="margin-bottom: 2%;"><strong>Prep Time:</strong> {{ recipe.prep_time }}</p>
-                                    <p class="card-text"><strong>Cook Time:</strong> {{ recipe.cook_time }}</p>
-                                    <a class="btn btn-login mt-auto" href="{{ url_for('views.CookbookRecipeView', recipe_id=recipe.id, cookbook_id=the_cookbook.id) }}" role="button">View Recipe</a>
-                                    <button type="button" id="recipeDeletBtn" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteRecipeModal{{ recipe.id }}">Delete</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- deleteCookbookModal -->
-                        <div class="modal fade deleteRecipeModal" id="deleteRecipeModal{{ recipe.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <form method="POST" class="needs-validation" id="deleteCookbookModalForm{{ recipe.id }}" novalidate>
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Are You Sure You Want To Delete?</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                            <button type="Submit" class="btn btn-danger finalDeleteSubmitBtn" id="finalDeleteSubmitBtn" name="finalDeleteSubmitBtn">Delete</button>
-                                        </div>
-
-                                        <input type="hidden" id="HiddenDeleteForm" name="HiddenDeleteForm" value="{{ recipe.id }}">
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
+      {% if recipes %}
+        <div class="row">
+          {% for recipe in recipes %}
+            <!-- Recipe Card -->
+            <div class="col-lg-3 col-md-6 col-sm-12 py-3">
+              <div class="card w-100 h-100" style="box-shadow: -2px 3px 10px 0 rgba(100, 100, 100, 0.2);">
+                <img class="card-img-top" src="{{ recipe.image_url }}" alt="No Image">
+                
+                <div class="card-body">
+                  <h5 class="card-title">{{ recipe.title }}</h5>
+                  <p class="card-text" style="margin-bottom: 2%;"><strong>Servings:</strong> {{ recipe.serving_size }}</p>
+                  <p class="card-text" style="margin-bottom: 2%;"><strong>Prep Time:</strong> {{ recipe.prep_time }}</p>
+                  <p class="card-text" style="margin-bottom: 0%;"><strong>Cook Time:</strong> {{ recipe.cook_time }}</p>
+                  <a class="stretched-link" href="{{ url_for('views.CookbookRecipeView', recipe_id=recipe.id, cookbook_id=the_cookbook.id) }}" role="button"></a>
                 </div>
-            {% endif %}
-            {% if not recipes %}
-                <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-                    <h2 align="center">Looks Like No Recipes Were Found.</h2>
+
+                <div class="card-footer text-body-secondary">
+                  <div class="d-grid justify-content-end" style="margin-right: 0%;">
+                    <button type="button" id="recipeDeletBtn" class="btn btn-red bi bi-trash3" data-bs-toggle="modal" data-bs-target="#deleteRecipeModal{{ recipe.id }}" style="z-index: 2; position: relative;"></button>
+                  </div>
                 </div>
-            {% endif %}
+
+              </div>
+            </div>
+
+            <!-- deleteRecipeModal -->
+            <div class="modal fade deleteRecipeModal" id="deleteRecipeModal{{ recipe.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <form method="POST" class="needs-validation" id="deleteCookbookModalForm{{ recipe.id }}" novalidate>
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Are You Sure You Want To Delete?</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                      <button type="Submit" class="btn btn-red finalDeleteSubmitBtn" id="finalDeleteSubmitBtn" name="finalDeleteSubmitBtn">Delete</button>
+                    </div>
+
+                    <input type="hidden" id="HiddenRecipeDeleteForm" name="HiddenRecipeDeleteForm" value="{{ recipe.id }}">
+                  </form>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
         </div>
+      {% endif %}
+      {% if not recipes %}
+        <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+          <h2 align="center">Looks Like No Recipes Were Found.</h2>
+        </div>
+      {% endif %}
     </div>
+    <div class="col-lg-1 col-md-1"></div>
+  </div>
 </div>
 
+<script>
+
+  {
+    const modl = document.querySelector('#editCookbookModal')
+
+    const cancelBtn = modl.querySelector('.editCookbookModalFormCancelBtn')
+    cancelBtn.addEventListener('click', event => resetEditCbModalFields(modl, event), false)
+    const closeBtn = modl.querySelector('.editCookbookModalFormCloseBtn')
+    closeBtn.addEventListener('click', event => resetEditCbModalFields(modl, event), false)
+    
+    const form = modl.querySelector('.editCookbookModalForm')
+    form.elements.edit_cookbook_title.addEventListener('input', event => validateEditCookbookTitle(form, event), false)
+    form.addEventListener('submit', event => validateEditCookbookTitle(form, event), false)
+  }
+
+  function resetEditCbModalFields(modl, event){
+    const form = modl.querySelector('.editCookbookModalForm')
+    form.elements.edit_cookbook_title.value = form.elements.HiddenEditCbTitle.value
+    form.elements.edit_cookbook_desc.value = form.elements.HiddenEditCbDesc.value
+    form.elements.edit_cookbook_title.classList.remove('is-valid', 'is-invalid')
+    form.elements.edit_cookbook_desc.classList.remove('is-valid', 'is-invalid')
+  }
+
+  function validateEditCookbookTitle(form, event){
+    var cookbook_title = form.elements.edit_cookbook_title.value
+    form.elements.edit_cookbook_title.classList.remove('is-valid', 'is-invalid')
+    if (cookbook_title === ''){
+        if (event.type === 'submit'){
+            event.preventDefault()
+            event.stopPropagation()
+        }
+        form.elements.edit_cookbook_title.classList.add('is-invalid')
+    }else{
+        form.elements.edit_cookbook_title.classList.add('is-valid')
+    }
+  }
+
+</script>
 {% endblock %}
