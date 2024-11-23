@@ -1,5 +1,5 @@
 {% extends "base.html" %} 
-{% block title %}CookbookRecipeView{% endblock %}
+{% block title %}{{ recipe.title }}{% endblock %}
 
 {% block content %}
 
@@ -11,12 +11,14 @@
   <div class="container-fluid">
     <div class="row">
       <!-- Left Column: Spacer -->
-      <div class="col-lg-1 col-md-1 col-sm-1 py-3"></div>
+      <div class="col-lg-1 col-md-1 col-sm-1 py-3" style="padding-left: 55px;">
+        <button type="button" class="btn btn-gray rounded-pill fw-medium" onclick="history.back()">
+          <i class="bi bi-chevron-left" style="font-size: 1.1rem; vertical-align: middle;"></i>
+        </button>
+      </div>
 
       <!-- Middle Column: Recipe -->
       <div class="col-lg-7 col-md-7 col-sm-12 py-3" style="margin-left: 25px; margin-right: 25px;">
-        <!-- <h1 align="center">{{ recipe.title }}</h1> -->
-
         <!-- Card: Image and Details -->
         <div class="card-group" style="margin-bottom: 25px; box-shadow: -3px 3px 10px 0 rgba(100, 100, 100, 0.15);">
           <!-- Image -->
@@ -28,60 +30,59 @@
 
           <!-- Details -->
           <div class="card">
-              <!-- Servings, Prep Time, Cook Time -->
-              <div class="card-body">
-                <h2 class="card-title">{{ recipe.title }}</h2>
-                <p class="mb-1" style="font-size: 1.2rem;"><strong>Servings:</strong> {{ recipe.serving_size }}</p>
-                <p class="mb-1" style="font-size: 1.2rem;"><strong>Prep Time:</strong> {{ recipe.prep_time }}</p>
-                <p class="mb-1" style="font-size: 1.2rem;"><strong>Cook Time:</strong> {{ recipe.cook_time }}</p>
-              </div>
+            <!-- Servings, Prep Time, Cook Time -->
+            <div class="card-body">
+              <h2 class="card-title">{{ recipe.title }}</h2>
+              <p class="mb-1" style="font-size: 1.2rem;"><strong>Servings:</strong> {{ recipe.serving_size }}</p>
+              <p class="mb-1" style="font-size: 1.2rem;"><strong>Prep Time:</strong> {{ recipe.prep_time }}</p>
+              <p class="mb-1" style="font-size: 1.2rem;"><strong>Cook Time:</strong> {{ recipe.cook_time }}</p>
+            </div>
 
-              <div class="card-footer d-flex flex-wrap" style="padding-bottom: 0%; padding-left: 10px;">
-                <!-- Tags -->
-                {% if recipe.is_breakfast %}
-                  <h5><span class="badge badge-tag rounded-pill me-2">Breakfast</span></h5>
-                {% endif %}
-                {% if recipe.is_lunch %}
-                  <h5><span class="badge badge-tag rounded-pill me-2">Lunch</span></h5>
-                {% endif %}
-                {% if recipe.is_dinner %}
-                  <h5><span class="badge badge-tag rounded-pill me-2">Dinner</span></h5>
-                {% endif %}
-                {% if recipe.is_snack %}
-                  <h5><span class="badge badge-tag rounded-pill me-2">Snack</span></h5>
-                {% endif %}
-                {% if recipe.is_appetizer %}
-                  <h5><span class="badge badge-tag rounded-pill me-2">Appetizer</span></h5>
-                {% endif %}
-                {% if recipe.is_entree %}
-                  <h5><span class="badge badge-tag rounded-pill me-2">Entrée</span></h5>
-                {% endif %}
-                {% if recipe.is_dessert %}
-                  <h5><span class="badge badge-tag rounded-pill me-2">Dessert</span></h5>
-                {% endif %}
-                {% if recipe.is_sidedish %}
-                  <h5><span class="badge badge-tag rounded-pill me-2">Side Dish</span></h5>
-                {% endif %}
-                {% if recipe.is_american %}
-                  <h5><span class="badge badge-tag rounded-pill me-2">American</span></h5>
-                {% endif %}
-                {% if recipe.is_chinese %}
-                  <h5><span class="badge badge-tag rounded-pill me-2">Chinese</span></h5>
-                {% endif %}
-                {% if recipe.is_indian %}
-                  <h5><span class="badge badge-tag rounded-pill me-2">Indian</span></h5>
-                {% endif %}
-                {% if recipe.is_italian %}
-                  <h5><span class="badge badge-tag rounded-pill me-2">Italian</span></h5>
-                {% endif %}
-                {% if recipe.is_mediterranean %}
-                  <h5><span class="badge badge-tag rounded-pill me-2">Mediterranean</span></h5>
-                {% endif %}
-                {% if recipe.is_mexican %}
-                  <h5><span class="badge badge-tag rounded-pill me-2">Mexican</span></h5>
-                {% endif %}
-              </div>
-            
+            <div class="card-footer d-flex flex-wrap" style="padding-bottom: 0%; padding-left: 10px;">
+              <!-- Tags -->
+              {% if recipe.is_breakfast %}
+                <h5><span class="badge badge-tag rounded-pill me-2">Breakfast</span></h5>
+              {% endif %}
+              {% if recipe.is_lunch %}
+                <h5><span class="badge badge-tag rounded-pill me-2">Lunch</span></h5>
+              {% endif %}
+              {% if recipe.is_dinner %}
+                <h5><span class="badge badge-tag rounded-pill me-2">Dinner</span></h5>
+              {% endif %}
+              {% if recipe.is_snack %}
+                <h5><span class="badge badge-tag rounded-pill me-2">Snack</span></h5>
+              {% endif %}
+              {% if recipe.is_appetizer %}
+                <h5><span class="badge badge-tag rounded-pill me-2">Appetizer</span></h5>
+              {% endif %}
+              {% if recipe.is_entree %}
+                <h5><span class="badge badge-tag rounded-pill me-2">Entrée</span></h5>
+              {% endif %}
+              {% if recipe.is_dessert %}
+                <h5><span class="badge badge-tag rounded-pill me-2">Dessert</span></h5>
+              {% endif %}
+              {% if recipe.is_sidedish %}
+                <h5><span class="badge badge-tag rounded-pill me-2">Side Dish</span></h5>
+              {% endif %}
+              {% if recipe.is_american %}
+                <h5><span class="badge badge-tag rounded-pill me-2">American</span></h5>
+              {% endif %}
+              {% if recipe.is_chinese %}
+                <h5><span class="badge badge-tag rounded-pill me-2">Chinese</span></h5>
+              {% endif %}
+              {% if recipe.is_indian %}
+                <h5><span class="badge badge-tag rounded-pill me-2">Indian</span></h5>
+              {% endif %}
+              {% if recipe.is_italian %}
+                <h5><span class="badge badge-tag rounded-pill me-2">Italian</span></h5>
+              {% endif %}
+              {% if recipe.is_mediterranean %}
+                <h5><span class="badge badge-tag rounded-pill me-2">Mediterranean</span></h5>
+              {% endif %}
+              {% if recipe.is_mexican %}
+                <h5><span class="badge badge-tag rounded-pill me-2">Mexican</span></h5>
+              {% endif %}
+            </div>
           </div>
         </div> <!-- end card -->
 
@@ -127,7 +128,7 @@
           </div>
           <div class="form-group">
             <div class="btn-toolbar d-flex flex-row-reverse align-items-center" role="toolbar">
-              <button type="Submit" class="btn btn-signup" id="notesFormSubmitBtn" name="notesFormSubmitBtn">Save</button>
+              <button type="Submit" class="btn btn-signup fw-medium" id="notesFormSubmitBtn" name="notesFormSubmitBtn">Save</button>
             </div>
           </div>
         </form>

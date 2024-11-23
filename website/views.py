@@ -8,8 +8,7 @@ views = Blueprint('views', __name__)
 
 @views.route('/')
 def home():
-    return render_template("Home.html")
-
+    return render_template("Home.html", user=current_user)
 
 @views.route('/MyCookbooks', methods=['GET', 'POST'])
 # login functionality requirement
@@ -31,7 +30,6 @@ def Cookbooks():
     else:
         flash('You need to log in to view this page', category='error')
         return redirect(url_for('views.home'))
-
 
 @views.route('/CookbookView', methods=['GET', 'POST'])
 def CookbookView():
@@ -84,7 +82,6 @@ def CookbookView():
         the_cookbook = Cookbook.query.filter_by(user_id=current_user.id, id=cookbook_id).first()
         cookbook_recipes = Cookbook_Recipe.query.filter_by(user_id=current_user.id, cookbook_id=cookbook_id).all()
         return render_template("CookbookView.html", user=current_user, the_cookbook=the_cookbook, recipes=cookbook_recipes)
-
 
 @views.route('/CookbookRecipeView', methods=['GET', 'POST'])
 def CookbookRecipeView():
@@ -213,14 +210,13 @@ def Explore():
         all_recipes = General_Recipe.query.all()
         return render_template("Explore.html", recipes=all_recipes, query_string_list=['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''])
 
-
 @views.route('/Account', methods=['GET', 'POST'])
 def Account():
     if(current_user.is_authenticated):
         if (request.method == 'POST'):
-            first_name = request.form.get("first_name")
-            last_name = request.form.get("last_name")
-            email = request.form.get("email")
+            first_name = request.form.get("account_first_name")
+            last_name = request.form.get("account_last_name")
+            email = request.form.get("account_email")
 
             same_email = email == current_user.email
             user_exists = User.query.filter_by(email=email).first()
@@ -234,10 +230,10 @@ def Account():
             else:
                 flash('Email typed in is currently in use', category='error')
             
-        return render_template("Account.html", user=current_user)
+        return redirect(url_for('views.home'))
     
     else:
-        flash('You need to log in to view this page', category='error')
+        flash('Invalid request', category='error')
         return redirect(url_for('views.home'))
     
 @views.route('/RecipeView', methods=['GET', 'POST'])
