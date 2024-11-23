@@ -1,5 +1,5 @@
 {% extends "base.html" %} 
-{% block title %}MyCookbooks{% endblock %}
+{% block title %}My Cookbooks{% endblock %}
 
 {% block content %}
 <h1 align="center">My Cookbooks</h1>
@@ -12,31 +12,32 @@
     <div class="modal fade" id="addCookBookModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
+
           <form method="POST" class="needs-validation" id="ModalCookBookForm" novalidate>
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Create New CookBook</h1>
+              <h5 class="modal-title" id="exampleModalLabel">New CookBook</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
             <div class="modal-body">
-              <label for="cookbook_title" class="form-label">Cookbook Title</label>
+              <label for="cookbook_title" class="form-label" style="margin-bottom: 8px;"><strong>Cookbook Name</strong></label>
               <div class="input-group">
-                <span class="input-group-text"><i class="bi bi-asterisk"></i></span>
-                <input type="text" class="form-control" name="cookbook_title" id="cookbook_title">
+                <span class="input-group">
+                <input type="text" class="form-control fw-light" name="cookbook_title" id="cookbook_title" placeholder="Lunch, Dinner, Dessert...">
                 <div class="invalid-feedback">Field Cannot Be Empty</div>
               </div>
 
-              <label for="cookbook_desc" class="form-label">Cookbook Description</label>
+              <label for="cookbook_desc" class="form-label" style="margin-bottom: 8px; margin-top: 20px;"><strong>Description</strong> <span class="text-secondary fw-light">(optional)</span></label>
               <div class="input-group">
-                <span class="input-group-text"><i class="bi bi-asterisk"></i></span>
-                <textarea class="form-control" name="cookbook_desc" id="cookbook_desc"></textarea>
+                <textarea class="form-control fw-light" name="cookbook_desc" id="cookbook_desc" placeholder="How would you like to describe this Cookbook?"></textarea>
               </div>
             </div>
 
             <input type="hidden" id="HiddenCreateCookbookFormIdentifier" name="HiddenCreateCookbookFormIdentifier" value="CreateCookbookForm">
 
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="Submit" class="btn btn-primary">Create</button>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-gray fw-medium" data-bs-dismiss="modal">Close</button>
+              <button type="Submit" class="btn btn-login fw-medium">Create</button>
             </div>
           </form>
         </div>
@@ -45,8 +46,8 @@
 
     <!-- Middle Column (Cookbook Cards) -->
     <div class="col">
-      <button type="button" class="btn btn-signup" data-bs-toggle="modal" data-bs-target="#addCookBookModal" id="addCookBookBtn" style="margin-top: -10px; margin-bottom: 10px;">
-        <i class="bi bi-journal-plus" style="padding-right: 6px;"></i>New Cookbook
+      <button type="button" class="btn btn-signup fw-medium" data-bs-toggle="modal" data-bs-target="#addCookBookModal" id="addCookBookBtn" style="margin-top: -10px; margin-bottom: 10px;">
+        <i class="bi bi-journal-plus" style="font-size: 1.2rem; padding-right: 6px; padding-left: -2px;line-height: 0.9em; vertical-align: middle;"></i>New Cookbook
       </button>
       {% if user.cookbooks %}
         <div class="row">
@@ -71,9 +72,7 @@
         </div>
       {% endif %}
       {% if not user.cookbooks %}
-        <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-          <h2 align="center">Looks Like You Currently Dont Have Any Cookbooks.</h2>
-        </div>
+        <h2 align="center" style="margin-top: 80px;">Looks Like You Currently Dont Have Any Cookbooks.</h2>
       {% endif %}
     </div>
 

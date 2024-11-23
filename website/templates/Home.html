@@ -2,32 +2,167 @@
 {% block content %}
 <h1 align="center" style="margin-top: 1rem;">Welcome To RecipeRepo!</h1>
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-3 col-md-3" style="margin-left: 15px; margin-right: 15px; margin-top: -2.5%;">
-            <img src="/static/images/bacon-bbq-cheeseburger.jpg" class="img-thumbnail">
-            <img src="/static/images/chicken-tikka-masala.jpg" class="img-thumbnail">
-        </div>
-            
-        <div class="col">
-            <h3 align="center">~ About Us ~</h3>
-            <p align="left">Welcome to RecipeRepo, your ultimate online recipe organizer and explorer! We're passionate about making cooking easier and more enjoyable by providing a seamless way to save, organize, and discover recipes from around the world.</p>
-            <p align="left">Whether you're a seasoned chef or just starting out, our platform allows you to store your favorite recipes, customize collections, and explore new culinary ideas. With intuitive search features, dietary filters, and a user-friendly interface, RecipeRepo is designed to help you find inspiration and keep all your kitchen creations in one convenient place. Let's make cooking simple, fun, and delicious together!</p>
-        
-            <h3 align="center">Member Login</h3>
-            <div class="d-flex justify-content-center" style="margin-bottom: 30px;">
-                <a href="{{ url_for('auth.login') }}" class="btn btn-login">Log In</a>
-            </div>
-        
-            <h3 align="center">New User</h3>
-            <div class="d-flex justify-content-center">
-                <a href="{{ url_for('auth.sign_up') }}" class="btn btn-signup">Sign Up</a>
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-md-3" style="margin-left: 15px; margin-right: 15px; margin-top: -2.5%;">
-            <img src="/static/images/overnight-cinnamon-rolls.png" class="img-thumbnail">
-            <img src="/static/images/italian-beef-sandwiches.png" class="img-thumbnail">
-        </div>
+  <div class="row">
+    <div class="col-lg-3 col-md-3" style="margin-left: 15px; margin-right: 15px; margin-top: -2.5%;">
+      <img src="/static/images/bacon-bbq-cheeseburger.jpg" class="img-thumbnail">
+      <img src="/static/images/chicken-tikka-masala.jpg" class="img-thumbnail">
     </div>
+        
+    <div class="col">
+      <h3 align="center">~ About Us ~</h3>
+      <p align="left">Welcome to RecipeRepo, your ultimate online recipe organizer and explorer! We're passionate about making cooking easier and more enjoyable by providing a seamless way to save, organize, and discover recipes from around the world.</p>
+      <p align="left">Whether you're a seasoned chef or just starting out, our platform allows you to store your favorite recipes, customize collections, and explore new culinary ideas. With intuitive search features, dietary filters, and a user-friendly interface, RecipeRepo is designed to help you find inspiration and keep all your kitchen creations in one convenient place. Let's make cooking simple, fun, and delicious together!</p>
+  
+      <h3 align="center">Member Login</h3>
+      <div class="d-flex justify-content-center" style="margin-bottom: 30px;">
+        <a href="{{ url_for('auth.login') }}" class="btn btn-login fw-medium">Log In</a>
+      </div>
+  
+      <h3 align="center">New User</h3>
+      <div class="d-flex justify-content-center">
+        <a href="{{ url_for('auth.sign_up') }}" class="btn btn-signup fw-medium">Sign Up</a>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-3" style="margin-left: 15px; margin-right: 15px; margin-top: -2.5%;">
+      <img src="/static/images/overnight-cinnamon-rolls.png" class="img-thumbnail">
+      <img src="/static/images/italian-beef-sandwiches.png" class="img-thumbnail">
+    </div>
+  </div>
 </div>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas1" aria-labelledby="accountOffcanvasLabel" aria-hidden="true">
+    {% if user.is_authenticated %}
+      <form method="POST" class="needs-validation" id="OffcanvasForm" action="/Account" novalidate>
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasExampleLabel">My Account Info</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          <hr class="margin-top: 0px">
+        </div>
+        
+
+        <div class="offcanvas-body">
+          <h6>First Name</h6>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+            <input type="text" class="form-control" name="account_first_name" id="account_first_name" value="{{ user.first_name }}">
+            <div class="invalid-feedback">Field Cannot Be Empty</div>
+          </div>
+          
+          <h6>Last Name</h6>
+          <div class="input-group" style="margin-top: 10px; margin-bottom: 10px;">
+            <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+            <input type="text" class="form-control" name="account_last_name" id="account_last_name" value="{{ user.last_name }}">
+            <div class="invalid-feedback">Field Cannot Be Empty</div>
+          </div>
+          
+          <h6>Email Address</h6>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+            <input type="text" class="form-control" name="account_email" id="account_email" value="{{ user.email }}">
+            <div class="invalid-feedback">Please Enter A Valid Email Address</div>
+          </div>
+          
+          <hr style="color: white;">
+          <button type="submit" class="btn btn-signup">Save</button>
+
+        </div>
+      </form>
+    {% else %}
+      <div class="offcanvas-header">
+        <p>you ain't got an account bozo</p>
+      </div>
+    {% endif %}
+  </div>
+
+  <script>
+    {
+      const makeChangeBtn = document.querySelector('#makeChangeBtn')
+      modalForm = document.querySelector('#OffcanvasForm')
+  
+      makeChangeBtn.addEventListener('click', event => resetModalFields(modalForm, event), false)
+    }
+  
+    function account_resetModalFields(form, event){
+      form.elements.account_first_name.value = "{{ user.first_name }}"
+      form.elements.account_last_name.value = "{{ user.last_name }}"
+      form.elements.account_email.value = "{{ user.email }}"
+      form.elements.account_first_name.classList.remove('is-valid', 'is-invalid')
+      form.elements.account_last_name.classList.remove('is-valid', 'is-invalid')
+      form.elements.account_email.classList.remove('is-valid', 'is-invalid')
+    }
+  
+    function account_AccountFormValidation(form, event){                
+      account_validateFirstName(form, event)
+      account_validateLastName(form, event)
+      account_validateEmail(form, event)
+    }
+  
+    function account_validateFirstName(form, event){
+      var first_name = form.elements.account_first_name.value
+      form.elements.account_first_name.classList.remove('is-valid', 'is-invalid')
+      if (first_name === ''){
+        if (event.type === 'submit'){
+          event.preventDefault()
+          event.stopPropagation()
+        }
+        form.elements.account_first_name.classList.add('is-invalid')
+      }else{
+        form.elements.account_first_name.classList.add('is-valid')
+      }
+    }
+  
+    function account_validateLastName(form, event){
+      var last_name = form.elements.account_last_name.value
+      form.elements.account_last_name.classList.remove('is-valid', 'is-invalid')
+      if (last_name === ''){
+        if (event.type === 'submit'){
+          event.preventDefault()
+          event.stopPropagation()
+        }
+        form.elements.account_last_name.classList.add('is-invalid')
+      }else{
+        form.elements.account_last_name.classList.add('is-valid')
+      }
+    }
+  
+    function account_validateEmail(form, event){
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+      var email = form.elements.account_email.value
+      form.elements.account_email.classList.remove('is-valid', 'is-invalid')
+      if (!emailRegex.test(email)){
+        if (event.type === 'submit'){
+          event.preventDefault()
+          event.stopPropagation()
+        }
+        form.elements.account_email.classList.add('is-invalid')
+      }else{
+        form.elements.account_email.classList.add('is-valid')
+      }
+    }
+  
+    (() => {
+      'use strict'
+  
+      const form = document.querySelector('#OffcanvasForm')
+      form.addEventListener('submit', event => account_AccountFormValidation(form, event), false)
+    })()
+  
+    const form = document.querySelector('#OffcanvasForm')
+  
+    {
+      const firstName = form.elements.account_first_name
+      firstName.addEventListener('input', event => account_validateFirstName(form, event), false)
+    }
+  
+    {
+      const lastName = form.elements.account_last_name
+      lastName.addEventListener('input', event => account_validateLastName(form, event), false)
+    }
+  
+    {
+      const email = form.elements.account_email
+      email.addEventListener('input', event => account_validateEmail(form, event), false)
+    }
+  </script>
 {% endblock %}

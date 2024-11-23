@@ -41,7 +41,7 @@
 
     <!-- Submit button -->
     <div class="d-flex justify-content-center">
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal1" id="makeChangeBtn">Make Changes</button>
+      <button type="button" class="btn btn-login" data-bs-toggle="modal" data-bs-target="#modal1" id="makeChangeBtn">Make Changes</button>
     </div>
     
     
@@ -53,9 +53,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <form method="POST" class="needs-validation" id="ModalAccountForm" novalidate>
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Account Info</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-header justify-content-between">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Account Info</h5>
+          <button type="button" class="btn bi bi-x-lg" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <!-- Email Input with Person Icon -->
@@ -77,105 +77,13 @@
               <div class="invalid-feedback">Please Enter A Valid Email Address</div>
             </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="Submit" class="btn btn-success">Save</button>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-gray" data-bs-dismiss="modal">Close</button>
+          <button type="Submit" class="btn btn-signup">Save</button>
         </div>
       </form>
     </div>
   </div>
 </div>
 
-<script>
-  
-  {
-      const makeChangeBtn = document.querySelector('#makeChangeBtn')
-      modalForm = document.querySelector('#ModalAccountForm')
-
-      makeChangeBtn.addEventListener('click', event => resetModalFields(modalForm, event), false)
-  }
-
-
-  function resetModalFields(form, event){
-    form.elements.first_name.value = "{{ current_user.first_name }}"
-    form.elements.last_name.value = "{{ current_user.last_name }}"
-    form.elements.email.value = "{{ current_user.email }}"
-  }
-
-  
-  function AccountFormValidation(form, event){                
-    validateFirstName(form, event)
-    validateLastName(form, event)
-    validateEmail(form, event)
-  }
-
-  function validateFirstName(form, event){
-    var first_name = form.elements.first_name.value
-    form.elements.first_name.classList.remove('is-valid', 'is-invalid')
-    if (first_name === ''){
-        if (event.type === 'submit'){
-            event.preventDefault()
-            event.stopPropagation()
-        }
-        form.elements.first_name.classList.add('is-invalid')
-    }else{
-        form.elements.first_name.classList.add('is-valid')
-    }
-  }
-
-  function validateLastName(form, event){
-    var last_name = form.elements.last_name.value
-    form.elements.last_name.classList.remove('is-valid', 'is-invalid')
-    if (last_name === ''){
-        if (event.type === 'submit'){
-            event.preventDefault()
-            event.stopPropagation()
-        }
-        form.elements.last_name.classList.add('is-invalid')
-    }else{
-        form.elements.last_name.classList.add('is-valid')
-    }
-  }
-
-  function validateEmail(form, event){
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-    
-    var email = form.elements.email.value
-    form.elements.email.classList.remove('is-valid', 'is-invalid')
-    if (!emailRegex.test(email)){
-        if (event.type === 'submit'){
-            event.preventDefault()
-            event.stopPropagation()
-        }
-        form.elements.email.classList.add('is-invalid')
-    }else{
-        form.elements.email.classList.add('is-valid')
-    }
-  }
-
-  (() => {
-    'use strict'
-
-    const form = document.querySelector('#ModalAccountForm')
-    form.addEventListener('submit', event => AccountFormValidation(form, event), false)
-  })()
-
-  const form = document.querySelector('#ModalAccountForm')
-
-  {
-    const firstName = form.elements.first_name
-    firstName.addEventListener('input', event => validateFirstName(form, event), false)
-  }
-
-  {
-    const lastName = form.elements.last_name
-    lastName.addEventListener('input', event => validateLastName(form, event), false)
-  }
-
-  {
-    const email = form.elements.email
-    email.addEventListener('input', event => validateEmail(form, event), false)
-  }
-
-</script>
 {% endblock %}
