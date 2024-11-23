@@ -37,10 +37,9 @@
         <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="offcanvasExampleLabel">My Account Info</h5>
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          <hr class="margin-top: 0px">
+          <hr class="margin-top: 0px; margin-bottom: -10px;">
         </div>
         
-
         <div class="offcanvas-body">
           <h6>First Name</h6>
           <div class="input-group">
@@ -49,28 +48,44 @@
             <div class="invalid-feedback">Field Cannot Be Empty</div>
           </div>
           
-          <h6>Last Name</h6>
+          <h6 style="margin-top: 15px;">Last Name</h6>
           <div class="input-group" style="margin-top: 10px; margin-bottom: 10px;">
             <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
             <input type="text" class="form-control" name="account_last_name" id="account_last_name" value="{{ user.last_name }}">
             <div class="invalid-feedback">Field Cannot Be Empty</div>
           </div>
           
-          <h6>Email Address</h6>
+          <h6 style="margin-top: 15px;">Email Address</h6>
           <div class="input-group">
             <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
             <input type="text" class="form-control" name="account_email" id="account_email" value="{{ user.email }}">
             <div class="invalid-feedback">Please Enter A Valid Email Address</div>
           </div>
           
-          <hr style="color: white;">
+          <hr style="color: white; margin-bottom: 0px;">
           <button type="submit" class="btn btn-signup">Save</button>
 
         </div>
       </form>
     {% else %}
       <div class="offcanvas-header">
-        <p>you ain't got an account bozo</p>
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">My Account Info</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <hr class="margin-top: 0px; margin-bottom: -10px;">
+      </div>
+
+      <div class="offcanvas-body">
+        <h6 align="center">You're not logged in!</h6>
+
+        <p align="center">Log in here:</p>
+        <div align="center" style="margin-top: -10px;">
+          <a href="{{ url_for('auth.login') }}" class="btn btn-login fw-medium">Log In</a>
+        </div>
+
+        <p align="center" style="margin-top: 15px;">Or sign up:</p>
+        <div align="center" style="margin-top: -10px;">
+          <a href="{{ url_for('auth.sign_up') }}" class="btn btn-signup fw-medium">Sign Up</a>
+        </div>
       </div>
     {% endif %}
   </div>

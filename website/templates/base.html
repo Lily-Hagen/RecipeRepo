@@ -36,7 +36,7 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg" role="navigation" style="background-image: linear-gradient(to bottom, #ffae35, #fff09d); box-shadow: 0 .125rem .375rem rgba(0, 0, 0, .2); vertical-align: middle;">
-      <div class="container-fluid">
+      <div class="container-fluid d-flex">
         <!-- Logo that links to Home -->
         <div class="navbar-header">
           <a class="navbar-brand fw-bold" href="/" style="padding-left: 1rem;">
@@ -52,12 +52,12 @@
         </ul>
 
         <!-- Account Icon Offcanvas -->
-        <ul class="nav navbar-nav navbar-right mb-2 mb-lg-0" style="margin-top: -10px;">
-          <li class="navbar-text"><a class="nav-link" href="/logout">Log Out</a></li>
-          <li><button class="btn btn-acc navbar-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas1" aria-controls="accountOffcanvasLabel" id="makeChangeBtn">
+        <div class="d-flex align-items-end mb-lg-0">
+          <a class="navbar-text nav-link" href="/logout" style="padding-right: 15px;">Log Out</a>
+          <button class="btn btn-acc navbar-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas1" aria-controls="accountOffcanvasLabel" id="makeChangeBtn">
             <i class="bi bi-person-circle" style="font-size: 1.2rem;"></i>
-          </button></li>
-        </ul>
+          </button>
+        </div>
         
       </div>  
     </nav>
