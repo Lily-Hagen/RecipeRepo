@@ -11,7 +11,10 @@ auth = Blueprint('auth', __name__)
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     # code here
-
+    if (current_user.is_authenticated):
+        flash('Cannot Access Login, You Are Already Logged In.', category='error')
+        return redirect(url_for('views.home'))
+    
     if (request.method == 'POST'):
         email = request.form.get('email')
         password = request.form.get('password')
@@ -22,7 +25,7 @@ def login():
             if(check_password_hash(user.password, password)):
                 flash('Login Successful.', category='success')
                 login_user(user, remember=True) # logs the user in, passes in to pages with flask module thingy
-                
+                return redirect(url_for('views.home'))
                 
             else: # password incorrect
                 flash('Failed to login, please check your username and/or password.', category='error')
@@ -50,6 +53,10 @@ def logout():
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def sign_up():
+    if (current_user.is_authenticated):
+        flash('Cannot Access Account Sign Up While Logged In.', category='error')
+        return redirect(url_for('views.home'))
+
     data = request.form
     if (request.method == 'POST'):
         email = request.form.get('email')

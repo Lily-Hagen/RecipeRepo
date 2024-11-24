@@ -91,11 +91,24 @@
   </div>
 
   <script>
+    document.addEventListener('DOMContentLoaded', event => {
+      if (sessionStorage.getItem('AccountCanvasTrigger') === 'true') {
+        offCanvasObject = document.querySelector('#offcanvas1')
+        modalForm = document.querySelector('#OffcanvasForm')
+        if (modalForm !== null){
+          account_resetModalFields(modalForm, event)
+        }
+        offCanvasObject.classList.toggle('show')
+
+        sessionStorage.removeItem('AccountCanvasTrigger')
+      }
+    })
+
     {
       const makeChangeBtn = document.querySelector('#makeChangeBtn')
       modalForm = document.querySelector('#OffcanvasForm')
   
-      makeChangeBtn.addEventListener('click', event => resetModalFields(modalForm, event), false)
+      makeChangeBtn.addEventListener('click', event => account_resetModalFields(modalForm, event), false)
     }
   
     function account_resetModalFields(form, event){
