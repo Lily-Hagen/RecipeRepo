@@ -1,3 +1,7 @@
+DISCLAIMER:
+This project is a private code base designed specifically for the UMBC CMSC447 - Software Engineering 1 course of Fall 2024 and is not meant for any other uses (public, commercial, etc.). Any replication or dissemination of any file in this repository is prohibited unless given proper permission from one of the 4 members listed below. The code base is not meant for public hosting and was not designed to handle or adhere to the standard practices used with secure web hosting and any user performing hosting does so at their own risk.
+If there are any questions or concerns please contact the school University of Maryland, Baltimore County (UMBC).
+
 UMBC CMSC447 - Group1 Section 1/6 - RecipeRepo README
 Members:
 * Ethan Cheung - PR49732
@@ -45,8 +49,3 @@ Important Notes:
 * Make sure to execute the main.py, that's the only way launch successfully
 * Make sure to delete the databse.db file when done to reset the programs database
 * The Images linked with the website recipes listed in the static > images folder, might not work as the paths described in the html might not be exact.
-
-
-DISCLAIMER:
-This project is a private code base designed specifically for the UMBC CMSC447 - Software Engineering 1 course of Fall 2024 and is not meant for any other uses (public, commercial, etc.). Any replication or dissemination of any file in this repository is prohibited unless given proper permission from one of the 4 members listed above. The code base is not meant for public hosting and was not designed to handle or adhere to the standard practices used with secure web hosting and any user performing hosting does so at their own risk.
-If there are any questions or concerns please contact the school University of Maryland, Baltimore County (UMBC).
