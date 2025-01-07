@@ -1,9 +1,8 @@
 #### DISCLAIMER:
 ###### This project is a private code base designed specifically for the UMBC CMSC447 Software Engineering 1 course of Fall 2024, and is not permitted for any other uses (public, commercial, etc.). Any replication or dissemination of the files in this repository is strictly prohibited without explicit permission from one of the project members listed below. The code base is not meant for public hosting and was not designed to comply with industry-standard secure web hosting practices, and any entity hosting does so at their own risk.
-###### If there are any questions or concerns please contact the 4 members below.
 
-#### UMBC CMSC447 - RecipeRepo README
-###### For project-related inquiries, contact Members:
+#### Contributing:
+###### Contributions to this project are limited to the 4 listed members. For additions or changes, please contact the team and submit a pull request through GitHub:
 * Ethan Cheung - echeung3@umbc.edu
 * Ryan Edwards - ryane2@umbc.edu
 * Lily Hagen - Lillian.hagen14@gmail.com
@@ -53,10 +52,7 @@
 * Make sure to execute the main.py, that's the only way launch successfully
 * Make sure to delete the databse.db file when done to reset the programs database
 * Ensure that the relative paths to images in the static/images folder are correct. If paths are incorrect, update them in the HTML code to match the project's directory structure
-* Last Commit on 01/06/2025 at 16:14 - duplicated repository, removed personal information
+* Last Commit on 01/07/2025 at 12:43 - duplicated repository, removed personal information, made public
 
 #### License
 ###### This project is proprietary and intended solely for academic use in UMBC CMSC447 Software Engineering 1, Fall 2024. All rights reserved.
-
-#### Contributing
-###### Contributions to this project are limited to the listed members. For additions or changes, please contact the team and submit a pull request through GitHub
